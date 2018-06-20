@@ -1,0 +1,21 @@
+<body>
+  <div class="container">
+    <%= link_to 'Back', :back %>
+
+    <h1>Update animal</h1>
+
+    <%= form_for @animal, as: :animal, url: animal_update_path(@animal.id), method: :patch do |f| %>
+      <div class="form-group">
+        <%= label_tag(:name, "Name: ") %>
+        <%= f.text_field :name, :required => true %>
+      </div>
+      <div class="form-group">
+        <%= label_tag(:gender, "Gender: ") %>
+        <%= f.text_area :gender, :required => true %>
+      </div>
+      <%= submit_tag('Update', :class => "btn btn-primary") %>
+    <% end %>
+
+    <br><%= link_to 'Back', :back %>
+  </div>
+</body>

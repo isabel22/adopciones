@@ -1,0 +1,12 @@
+<body>
+  <div class="container">
+    <%= link_to 'Back', :back %>
+
+    <h1> <%= @animal.name %> </h1>
+    <span><strong>Created at: </strong><%= @animal.created_at %> </span><br>
+
+    <p><%= @animal.gender.html_safe if @animal.gender.present? %></p>
+
+    <%= link_to 'Back', :back %>
+  </div>
+</body>

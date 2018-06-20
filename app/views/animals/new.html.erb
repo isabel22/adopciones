@@ -1,0 +1,21 @@
+<body>
+  <div class="container">
+    <%= link_to 'Back', :back %>
+
+    <h1>New animal</h1>
+
+    <%= form_for Animal.new, as: :animal, url: animal_create_path(:animal), method: :post do |f| %>
+      <div class="form-group">
+        <%= label_tag(:name, "Name: ") %>
+        <%= f.text_field :name, :required => true %>
+      </div>
+      <div class="form-group">
+        <%= label_tag(:gender, "Gender: ") %>
+        <%= f.text_area :gender, :required => true %>
+      </div>
+      <%= submit_tag('Create', :class => "btn btn-primary") %>
+    <% end %>
+
+    <br><%= link_to 'Back', :back %>
+  </div>
+</body>
