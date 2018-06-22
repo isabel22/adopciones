@@ -64,5 +64,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Devise gem. More info in: https://github.com/plataformatec/devise
 gem 'devise'
-gem 'bootstrap', '~> 4.0.0'
-gem 'jquery-rails', '~> 4.3.1'
+gem 'bootstrap', '~> 4.1.1'
+gem 'jquery-rails'
