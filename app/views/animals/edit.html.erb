@@ -13,6 +13,23 @@
         <%= label_tag(:gender, "Gender: ") %>
         <%= f.text_area :gender, :required => true %>
       </div>
+      <div class="form-group">
+        <%= label_tag(:rescued, "Rescued: ") %>
+        <%= f.check_box :rescued, :required => false %>
+      </div>
+      <div class="form-group">
+        <%= label_tag(:birthdate_rescuedate, "Date of rescue/birth: ") %>
+        <%= f.date_field :birthdate_rescuedate, :required => true %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag(:adopted, "Adopted: ") %>
+        <%= f.check_box :adopted, :required => false %>
+      </div>
+      <div class="form-group">
+        <%= label_tag(:adoption_date, "Date of adoption: ") %>
+        <%= f.date_field :adoption_date, :required => false %>
+      </div>
       <%= submit_tag('Update', :class => "btn btn-primary") %>
     <% end %>
 

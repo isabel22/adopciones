@@ -5,7 +5,6 @@ class AnimalsController < ApplicationController
   end
 
   def show
-    puts "params::: #{params}"
     @animal = Animal.find(params[:animal_id])
   end
 
