@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+['Perro', 'Gato', 'Ave', 'Roedor'].each do |specimen|
+  unless (AnimalSpecy.where(name: specimen).count > 0)
+    AnimalSpecy.create(name: specimen)
+  end
+end
+
+`bin/rake db:seed:dogs`

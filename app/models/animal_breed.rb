@@ -1,3 +1,3 @@
 class AnimalBreed < ApplicationRecord
-  belongs_to :animal_species
+  has_one :animal_specy
 end
