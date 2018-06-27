@@ -26,6 +26,10 @@ class AnimalsController < ApplicationController
     redirect_to(animals_path, notice: "Animal updated")
   end
 
+  def new
+    @animal_breeds = AnimalBreed.all
+  end
+
   def create
     Animal.create!(safe_params)
 

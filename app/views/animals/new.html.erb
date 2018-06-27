@@ -14,6 +14,10 @@
         <%= f.text_area :gender, :required => true %>
       </div>
       <div class="form-group">
+        <%= label_tag("animal[animal_breeds_id]", "Breed: ") %>
+        <%= select_tag "animal[animal_breeds_id]", options_from_collection_for_select(@animal_breeds, 'id', 'name', '1'), include_blank: true %>
+      </div>
+      <div class="form-group">
         <%= label_tag(:rescued, "Rescued: ") %>
         <%= f.check_box :rescued, :required => false %>
       </div>
