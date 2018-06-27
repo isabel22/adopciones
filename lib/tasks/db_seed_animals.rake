@@ -19,6 +19,11 @@ namespace :db do
     task :birds => :environment do
       db_seed_birds
     end
+
+    desc "Seed Rodents from /db/seeds/rodents.csv"
+    task :rodents => :environment do
+      db_seed_rodents
+    end
   end
 end
 
@@ -60,6 +65,19 @@ def db_seed_birds
     breed = row['breed']
     unless (AnimalBreed.where(name: breed, animal_species_id: bird_id).count > 0)
       AnimalBreed.create(name: breed, animal_species_id: bird_id)
+    end
+  end
+end
+
+def db_seed_rodents
+  csv_text = File.read(Rails.root.join('db', 'seeds', 'rodents.csv'))
+  csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+  rodent = AnimalSpecy.where(name: 'Roedor').first
+  rodent_id = rodent.id
+  csv.each do |row|
+    breed = row['breed']
+    unless (AnimalBreed.where(name: breed, animal_species_id: rodent_id).count > 0)
+      AnimalBreed.create(name: breed, animal_species_id: rodent_id)
     end
   end
 end
