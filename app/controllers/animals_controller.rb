@@ -27,6 +27,7 @@ class AnimalsController < ApplicationController
   end
 
   def new
+    @animal_species = AnimalSpecy.all
     @animal_breeds = AnimalBreed.all
   end
 
