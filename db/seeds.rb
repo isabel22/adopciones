@@ -13,3 +13,4 @@
 end
 
 `bin/rake db:seed:dogs`
+`bin/rake db:seed:cats`
