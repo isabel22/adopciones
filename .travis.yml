@@ -1,14 +1,24 @@
 addons:
   postgresql: 10.2
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5433
 dist: trusty
 language: ruby
 rvm:
 - 2.4.0
+services:
+  - postgresql
 script:
-- bundle install
-- bundle exec rake db:create
-- bundle exec rails db:migrate RAILS_ENV=test
-- bundle exec rspec
+  - RAILS_ENV=test
+  - bundle install
+  - bundle exec rake db:create
+  - bundle exec rails db:migrate
+  - bundle exec rspec
 deploy:
   provider: rubygems
   api_key:
