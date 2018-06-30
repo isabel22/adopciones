@@ -13,6 +13,9 @@ rvm:
 - 2.4.0
 services:
   - postgresql
+before_script:
+  - cat config/database.yml
+  # - cp config/database.yml.travis config/database.yml
 script:
   - RAILS_ENV=test
   - bundle install
