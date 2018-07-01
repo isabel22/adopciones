@@ -14,12 +14,13 @@ rvm:
 services:
   - postgresql
 before_script:
-  - cat config/database.yml
-  # - cp config/database.yml.travis config/database.yml
+  - cp config/database.yml.travis config/database.yml
+  - psql -U postgres
+  - create database travis_ci_test;
+  - \q
 script:
   - RAILS_ENV=test
   - bundle install
-  - bundle exec rake db:create
   - bundle exec rails db:migrate
   - bundle exec rspec
 deploy:
