@@ -1,0 +1,37 @@
+addons:
+  postgresql: 10.2
+  apt:
+    packages:
+    - postgresql-10
+    - postgresql-client-10
+env:
+  global:
+  - PGPORT=5432
+dist: trusty
+language: ruby
+rvm:
+- 2.4.0
+services:
+  - postgresql
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - sudo apt-get update
+  - sudo apt-get install language-pack-es
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql start
+script:
+  - RAILS_ENV=test
+  - bundle install
+  - bundle exec rails db:create
+  - bundle exec rails db:migrate
+  - bundle exec rake db:seed
+  - bundle exec rspec
+deploy:
+  provider: rubygems
+  api_key:
+    secure: nFDQ6cIc4MVYor3J9oL/cuTIgjB00HNQqmFo/VcoxRo6l4HislrWmm/fuT5DcJNFgiZTM1MFG9A1kRnLtG0s9lFuVX5/EN25d+PhTZBQ2q+JV4nmS+llXOj8SwR2fosEwRzKd2cO75tatA6/vrGXegrMCKo7+4UCL1/elu6i0WC27px8Op7SjPU9u+afdO5BSAhokVLup2aW5DwxnzrIhhlIZyCKi2xQ3Kn2N3E1jrJRokbdndBRNal2ugT6kcjMXZpDMZ+B9XUG5lAeE/TZnh4g+c5C9lKSBu3T0EbpvC1eb8gi3fQESzZ91QQol9WRsbFwrLyxYHqc8XC22kJu37jf/4sUJWBtbrW8FlHab2GPF4aPQ7qxWx7AfY1pyisP+8LaoKX9yZ93ea8QxqEPhgCMR8SSnZtpcALW7Gaf5ma2tqKAJN4uGsrKhED7IciDNHT9BwjKNBLpxFitF7TPjBK0d7ZeWq3GsQwcM1TkvqEsf7V9cmLzN/EJMuLVM1MK9dv8kGCWc54LUxgezWSyOzl6niK1Z6X3Qd8RcnN3KEyxxwhoi3Xl/FFWdO66i52uGBfD3bDiuVrDElUKinb+1LVfftKoDMT0NZb1v2MZEFDE/W3ilh4CL1RkfVrL+ZvmaEuHN0CiB7O45rfFAQhHoYDHtE71bCM4yVOUi+nge2w=
+  gem: adopciones
+  on:
+    tags: true
+    repo: isabel22/adopciones
+    branch: configure-travis
