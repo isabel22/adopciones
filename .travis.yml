@@ -15,6 +15,7 @@ services:
   - postgresql
 before_script:
   - cp config/database.yml.travis config/database.yml
+  - ls /etc/init.d/
   - sudo apt-get update
   - sudo apt-get install language-pack-es
   - sudo /etc/init.d/postgresql stop
