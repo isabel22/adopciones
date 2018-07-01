@@ -18,7 +18,7 @@ before_script:
   - sudo apt-get update
   - sudo apt-get install language-pack-es
   - sudo /etc/init.d/postgresql stop
-  - sudo /etc/init.d/postgresql start 10.2
+  - sudo /etc/init.d/postgresql start
   - psql -c 'create database travis_ci_test;' -U postgres
 script:
   - RAILS_ENV=test
