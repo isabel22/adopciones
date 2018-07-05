@@ -12,5 +12,6 @@ Rails.application.routes.draw do
 
   resources :animal_species, only: [:index, :new] do
     post :create
+    get :show
   end
 end

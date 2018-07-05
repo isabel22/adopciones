@@ -20,9 +20,9 @@
               <td><%= specy.name %></td>
               <td><%= specy.created_at %></td>
               <td>
-                <%= link_to 'Show', animal_show_path(specy.id) %>
-                <%= link_to 'Edit', animal_edit_path(specy.id) %>
-                <%= link_to 'Delete', animal_delete_path(specy.id), method: :delete %>
+                <%= link_to 'Show', animal_specy_show_path(specy.id) %>
+                <%= link_to 'Edit', nil %>
+                <%= link_to 'Delete', nil, method: :delete %>
               </td>
             </tr>
           <% end %>

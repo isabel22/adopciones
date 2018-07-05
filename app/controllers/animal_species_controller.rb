@@ -13,6 +13,10 @@ class AnimalSpeciesController < ApplicationController
     redirect_to(animal_species_path, notice: "Created successfully")
   end
 
+  def show
+    @animal_species = AnimalSpecy.find(params[:animal_specy_id])
+  end
+
   private
 
   def safe_params
