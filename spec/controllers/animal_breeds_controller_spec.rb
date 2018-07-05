@@ -82,4 +82,38 @@ RSpec.describe AnimalBreedsController, type: :controller do
       expect(AnimalBreed.count).to be(1)
     end
   end
+
+  describe 'show' do
+    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_species_id: animal_specy.id)}
+
+    it "does not render the show template" do
+      get :show, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id
+      }
+      expect(response).not_to render_template("show")
+    end
+
+    it "renders the show template" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :show, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id
+      }
+      expect(response).to render_template("show")
+    end
+
+    it 'assigns @animal_breed' do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :show, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id
+      }
+
+      expect(assigns(:animal_breed)).to eq(animal_breed)
+    end
+  end
 end
