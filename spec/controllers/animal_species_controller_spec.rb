@@ -121,12 +121,33 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       expect(animal_specy.reload.name).to match('Dog')
     end
 
-    it 'updates the register for animal_id' do
+    it 'updates the register for animal_specy_id' do
       user = FactoryBot.create(:user)
       sign_in user
 
       patch :update, :params => {animal_specy_id: animal_specy.id, animal_specy: {"name"=>"Mammal"}}
       expect(animal_specy.reload.name).to eq('Mammal')
+    end
+  end
+
+  describe 'delete' do
+    before(:each) do
+      @animal_specy = FactoryBot.create(:animal_specy)
+    end
+
+    it 'does not remove the animal_specy_id' do
+      expect(AnimalSpecy.count).to be(1)
+      delete :delete, :params => {animal_specy_id: @animal_specy.id}
+      expect(AnimalSpecy.count).to be(1)
+    end
+
+    it 'destroys the register for animal_specy_id' do
+      user = FactoryBot.create(:user)
+      sign_in user
+
+      expect(AnimalSpecy.count).to be(1)
+      delete :delete, :params => {animal_specy_id: @animal_specy.id}
+      expect(AnimalSpecy.count).to be(0)
     end
   end
 end

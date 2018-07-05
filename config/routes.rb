@@ -15,5 +15,6 @@ Rails.application.routes.draw do
     get :show
     get :edit
     patch :update
+    delete :delete
   end
 end
