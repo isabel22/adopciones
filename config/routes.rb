@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     patch :update
     delete :delete
 
-    resources :animal_breeds, only: [:index]
+    resources :animal_breeds, only: [:index, :new] do
+      post :create
+    end
   end
 end
