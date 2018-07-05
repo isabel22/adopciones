@@ -1,0 +1,18 @@
+<body>
+  <div class="container">
+    <%= link_to 'Back', :back %>
+
+    <h1>New animal species for <%= @animal_species.name %> </h1>
+
+    <%= form_for @animal_breed, as: :animal_breed, url: animal_specy_animal_breed_update_path(@animal_breed.id, animal_specy_id: @animal_species.id), method: :patch do |f| %>
+      <div class="form-group">
+        <%= label_tag(:name, "Name: ") %>
+        <%= f.text_field :name, :required => true %>
+      </div>
+      <%= f.hidden_field :animal_species_id, value: @animal_species.id %>
+      <%= submit_tag('Update', :class => "btn btn-primary") %>
+    <% end %>
+
+    <br><%= link_to 'Back', :back %>
+  </div>
+</body>

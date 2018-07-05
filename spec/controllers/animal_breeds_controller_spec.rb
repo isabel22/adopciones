@@ -144,4 +144,65 @@ RSpec.describe AnimalBreedsController, type: :controller do
       expect(AnimalBreed.count).to be(0)
     end
   end
+
+  describe 'edit' do
+    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_species_id: animal_specy.id)}
+
+    it "does not render the edit template" do
+      get :edit, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id
+      }
+      expect(response).not_to render_template("edit")
+    end
+
+    it "renders the edit template" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :edit, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id
+      }
+      expect(response).to render_template("edit")
+    end
+
+    it 'assigns @animal' do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :edit, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id
+      }
+
+      expect(assigns(:animal_species)).to eq(animal_specy)
+      expect(assigns(:animal_breed)).to eq(animal_breed)
+    end
+  end
+
+  describe 'update' do
+    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_species_id: animal_specy.id)}
+
+    it 'does not update the animal_id' do
+      patch :update, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id,
+        animal_breed: {"name" => "Another breed"}
+      }
+      expect(animal_breed.reload.name).to match('Breed')
+    end
+
+    it 'updates the register for animal_specy_id' do
+      user = FactoryBot.create(:user)
+      sign_in user
+
+      patch :update, :params => {
+        animal_specy_id: animal_specy.id,
+        animal_breed_id: animal_breed.id,
+        animal_breed: {"name" => "Another breed"}
+      }
+      expect(animal_breed.reload.name).to eq('Another breed')
+    end
+  end
 end

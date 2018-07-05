@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       post :create
       get :show
       delete :delete
+      get :edit
+      patch :update
     end
   end
 end

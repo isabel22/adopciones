@@ -22,9 +22,9 @@
               <td><%= breed.name %></td>
               <td><%= breed.created_at %></td>
               <td>
-                <%= link_to 'Show', animal_specy_animal_breed_show_path(animal_species_id: @animal_species.id, animal_breed_id: breed.id) %>
-                <%= link_to 'Edit', animal_specy_edit_path(breed.id) %>
-                <%= link_to 'Delete', animal_specy_animal_breed_delete_path(animal_species_id: @animal_species.id, animal_breed_id: breed.id), method: :delete %>
+                <%= link_to 'Show', animal_specy_animal_breed_show_path(animal_breed_id: breed.id) %>
+                <%= link_to 'Edit', animal_specy_animal_breed_edit_path(animal_breed_id: breed.id) %>
+                <%= link_to 'Delete', animal_specy_animal_breed_delete_path(animal_breed_id: breed.id), method: :delete %>
               </td>
             </tr>
           <% end %>
