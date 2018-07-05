@@ -1,0 +1,33 @@
+<body>
+  <div class="container">
+    <h1> Animal Species </h1>
+
+    <div class="text-right">
+      <%= link_to "Add new", new_animal_path, class: "btn btn-primary" %>
+    </div><br>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Created at</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @animal_species.each do |specy| %>
+            <tr>
+              <td><%= specy.name %></td>
+              <td><%= specy.created_at %></td>
+              <td>
+                <%= link_to 'Show', animal_show_path(specy.id) %>
+                <%= link_to 'Edit', animal_edit_path(specy.id) %>
+                <%= link_to 'Delete', animal_delete_path(specy.id), method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
