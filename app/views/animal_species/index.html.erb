@@ -21,6 +21,7 @@
               <td><%= specy.name %></td>
               <td><%= specy.created_at %></td>
               <td>
+                <%= link_to 'Breeds', animal_specy_animal_breeds_path(specy.id) %>
                 <%= link_to 'Show', animal_specy_show_path(specy.id) %>
                 <%= link_to 'Edit', animal_specy_edit_path(specy.id) %>
                 <%= link_to 'Delete', animal_specy_delete_path(specy.id), method: :delete %>
