@@ -116,4 +116,32 @@ RSpec.describe AnimalBreedsController, type: :controller do
       expect(assigns(:animal_breed)).to eq(animal_breed)
     end
   end
+
+  describe 'delete' do
+    before(:each) do
+      @animal_specy = FactoryBot.create(:animal_specy)
+      @animal_breed = FactoryBot.create(:animal_breed, animal_species_id: @animal_specy)
+    end
+
+    it 'does not remove the animal_specy_id' do
+      expect(AnimalBreed.count).to be(1)
+      delete :delete, :params => {
+        animal_specy_id: @animal_specy.id,
+        animal_breed_id: @animal_breed.id
+      }
+      expect(AnimalBreed.count).to be(1)
+    end
+
+    it 'destroys the register for animal_specy_id' do
+      user = FactoryBot.create(:user)
+      sign_in user
+
+      expect(AnimalBreed.count).to be(1)
+      delete :delete, :params => {
+        animal_specy_id: @animal_specy.id,
+        animal_breed_id: @animal_breed.id
+      }
+      expect(AnimalBreed.count).to be(0)
+    end
+  end
 end

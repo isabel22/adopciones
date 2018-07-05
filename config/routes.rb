@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :animal_breeds, only: [:index, :new] do
       post :create
       get :show
+      delete :delete
     end
   end
 end

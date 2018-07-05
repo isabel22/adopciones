@@ -21,6 +21,13 @@ class AnimalBreedsController < ApplicationController
     @animal_breed = AnimalBreed.find(animal_breed_id)
   end
 
+  def delete
+    animal_breed = AnimalBreed.find(params[:animal_breed_id])
+    animal_breed.destroy
+
+    redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), alert: "Animal breed deleted")
+  end
+
   private
 
   def safe_params
