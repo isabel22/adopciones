@@ -16,5 +16,7 @@ Rails.application.routes.draw do
     get :edit
     patch :update
     delete :delete
+
+    resources :animal_breeds, only: [:index]
   end
 end
