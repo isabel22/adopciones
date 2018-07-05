@@ -23,4 +23,45 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       expect(assigns(:animal_species)).to eq([species])
     end
   end
+
+  describe 'new' do
+    it "does not render the new template" do
+      get :new
+      expect(response).not_to render_template("new")
+    end
+
+    it "renders the edit template" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :new
+      expect(response).to render_template("new")
+    end
+  end
+
+  describe 'create' do
+    it 'does not create an animal species' do
+      expect(AnimalSpecy.count).to be(0)
+      patch :create, :params => {
+        animal_specy_id: "animal_specy",
+        animal_specy: {
+          "name"=>"Mammal"
+        }
+      }
+      expect(AnimalSpecy.count).to be(0)
+    end
+
+    it 'creates a new animal species' do
+      user = FactoryBot.create(:user)
+      sign_in user
+
+      expect(AnimalSpecy.count).to be(0)
+      patch :create, :params => {
+        animal_specy_id: "animal_specy",
+        animal_specy: {
+          "name"=>"Mammal"
+        }
+      }
+      expect(AnimalSpecy.count).to be(1)
+    end
+  end
 end

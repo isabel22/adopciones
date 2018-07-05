@@ -10,5 +10,7 @@ Rails.application.routes.draw do
     post :create
   end
 
-  resources :animal_species, only: [:index]
+  resources :animal_species, only: [:index, :new] do
+    post :create
+  end
 end
