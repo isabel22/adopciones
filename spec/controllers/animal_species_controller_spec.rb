@@ -88,4 +88,45 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       expect(assigns(:animal_species)).to eq(animal_specy)
     end
   end
+
+  describe 'edit' do
+    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+
+    it "does not render the edit template" do
+      get :edit, :params => {animal_specy_id: animal_specy.id}
+      expect(response).not_to render_template("edit")
+    end
+
+    it "renders the edit template" do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :edit, :params => {animal_specy_id: animal_specy.id}
+      expect(response).to render_template("edit")
+    end
+
+    it 'assigns @animal' do
+      user = FactoryBot.create(:user)
+      sign_in user
+      get :edit, :params => {animal_specy_id: animal_specy.id}
+
+      expect(assigns(:animal_species)).to eq(animal_specy)
+    end
+  end
+
+  describe 'update' do
+    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+
+    it 'does not update the animal_id' do
+      patch :update, :params => {animal_specy_id: animal_specy.id, animal_specy: {"name"=>"Mammal"}}
+      expect(animal_specy.reload.name).to match('Dog')
+    end
+
+    it 'updates the register for animal_id' do
+      user = FactoryBot.create(:user)
+      sign_in user
+
+      patch :update, :params => {animal_specy_id: animal_specy.id, animal_specy: {"name"=>"Mammal"}}
+      expect(animal_specy.reload.name).to eq('Mammal')
+    end
+  end
 end

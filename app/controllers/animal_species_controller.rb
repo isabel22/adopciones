@@ -17,6 +17,18 @@ class AnimalSpeciesController < ApplicationController
     @animal_species = AnimalSpecy.find(params[:animal_specy_id])
   end
 
+  def edit
+    @animal_species = AnimalSpecy.find(params[:animal_specy_id])
+  end
+
+  def update
+    animal_species = AnimalSpecy.find(params[:animal_specy_id])
+    animal_species.update!(safe_params)
+
+    redirect_to(animal_species_path, notice: "Animal species updated")
+  end
+
+
   private
 
   def safe_params
