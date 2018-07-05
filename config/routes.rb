@@ -9,4 +9,12 @@ Rails.application.routes.draw do
     patch :update
     post :create
   end
+
+  resources :animal_species, only: [:index, :new] do
+    post :create
+    get :show
+    get :edit
+    patch :update
+    delete :delete
+  end
 end
