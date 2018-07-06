@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_26_102219) do
+ActiveRecord::Schema.define(version: 2018_07_06_105436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,39 @@ ActiveRecord::Schema.define(version: 2018_06_26_102219) do
     t.datetime "updated_at", null: false
     t.bigint "animal_breeds_id"
     t.index ["animal_breeds_id"], name: "index_animals_on_animal_breeds_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string "uid"
+    t.string "first_name"
+    t.string "last_name"
+    t.date "birthdate"
+    t.string "email"
+    t.string "address"
+    t.string "home_phone"
+    t.string "cellphone"
+    t.string "country"
+    t.string "job_position"
+    t.string "job_address"
+    t.string "job_phone"
+    t.text "references", default: [], array: true
+    t.boolean "other_pets"
+    t.text "different_pet", default: [], array: true
+    t.boolean "puppy"
+    t.text "family_members", default: [], array: true
+    t.boolean "all_agree"
+    t.string "type_of_home"
+    t.boolean "own_home"
+    t.string "place_to_be"
+    t.string "place_to_sleep"
+    t.boolean "has_garden"
+    t.boolean "can_escape"
+    t.string "signature"
+    t.string "status"
+    t.bigint "animal_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["animal_id"], name: "index_requests_on_animal_id"
   end
 
   create_table "users", force: :cascade do |t|
