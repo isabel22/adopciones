@@ -25,4 +25,12 @@ Rails.application.routes.draw do
       patch :update
     end
   end
+
+  resources :requests, only: [:index, :new, :edit] do
+    post :create
+    get :show
+    delete :delete
+    get :edit
+    post :update
+  end
 end
