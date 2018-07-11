@@ -2,13 +2,8 @@ require 'rails_helper'
 
 RSpec.describe RequestsController, type: :controller do
 
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:valid_attributes) { FactoryBot.attributes_for(:request) }
+  let(:invalid_attributes) { FactoryBot.attributes_for(:request).except!(:uid) }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -26,7 +21,7 @@ RSpec.describe RequestsController, type: :controller do
   describe "GET #show" do
     it "returns a success response" do
       request = Request.create! valid_attributes
-      get :show, params: {id: request.to_param}, session: valid_session
+      get :show, params: {request_id: request.id}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -41,7 +36,7 @@ RSpec.describe RequestsController, type: :controller do
   describe "GET #edit" do
     it "returns a success response" do
       request = Request.create! valid_attributes
-      get :edit, params: {id: request.to_param}, session: valid_session
+      get :edit, params: {request_id: request.id}, session: valid_session
       expect(response).to be_success
     end
   end
@@ -68,7 +63,7 @@ RSpec.describe RequestsController, type: :controller do
     end
   end
 
-  describe "PUT #update" do
+  describe "POST #update" do
     context "with valid params" do
       let(:new_attributes) {
         skip("Add a hash of attributes valid for your model")
@@ -76,14 +71,14 @@ RSpec.describe RequestsController, type: :controller do
 
       it "updates the requested request" do
         request = Request.create! valid_attributes
-        put :update, params: {id: request.to_param, request: new_attributes}, session: valid_session
+        put :update, params: {request_id: request.id, request: new_attributes}, session: valid_session
         request.reload
         skip("Add assertions for updated state")
       end
 
       it "redirects to the request" do
         request = Request.create! valid_attributes
-        put :update, params: {id: request.to_param, request: valid_attributes}, session: valid_session
+        put :update, params: {request_id: request.id, request: valid_attributes}, session: valid_session
         expect(response).to redirect_to(request)
       end
     end
@@ -91,23 +86,23 @@ RSpec.describe RequestsController, type: :controller do
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
         request = Request.create! valid_attributes
-        put :update, params: {id: request.to_param, request: invalid_attributes}, session: valid_session
+        put :update, params: {request_id: request.id, request: invalid_attributes}, session: valid_session
         expect(response).to be_success
       end
     end
   end
 
-  describe "DELETE #destroy" do
+  describe "DELETE #delete" do
     it "destroys the requested request" do
       request = Request.create! valid_attributes
       expect {
-        delete :destroy, params: {id: request.to_param}, session: valid_session
+        delete :delete, params: {request_id: request.id}, session: valid_session
       }.to change(Request, :count).by(-1)
     end
 
     it "redirects to the requests list" do
       request = Request.create! valid_attributes
-      delete :destroy, params: {id: request.to_param}, session: valid_session
+      delete :delete, params: {request_id: request.id}, session: valid_session
       expect(response).to redirect_to(requests_url)
     end
   end
