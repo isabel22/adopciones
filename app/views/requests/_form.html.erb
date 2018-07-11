@@ -73,7 +73,7 @@
   <div class="form-group">
     <%= label_tag(:different_pet, "What kind of pets?: ") %>
     <% @other_types.each do |id, type| %>
-      <%= f.check_box :different_pet, {multiple: true, id: id}, type, false %>
+      <%= f.check_box :different_pet, {multiple: true, id: id, value: type}, type, false %>
       <%= f.label type %>
     <% end %>
   </div>

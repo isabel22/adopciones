@@ -53,6 +53,34 @@ class RequestsController < ApplicationController
   end
 
   def request_params
-    params.fetch(:request, {})
+    params.require(:request).permit(
+      :uid,
+      :first_name,
+      :last_name,
+      :birthdate,
+      :email,
+      :address,
+      :home_phone,
+      :cellphone,
+      :country,
+      :job_position,
+      :job_address,
+      :job_phone,
+      :references,
+      :other_pets,
+      :different_pet,
+      :puppy,
+      :family_members,
+      :all_agree,
+      :type_of_home,
+      :own_home,
+      :place_to_be,
+      :place_to_sleep,
+      :has_garden,
+      :can_escape,
+      :signature,
+      :status,
+      :animal_id
+    )
   end
 end
