@@ -71,9 +71,13 @@
     <%= f.radio_button :other_pets, false %>
   </div>
   <div class="form-group">
-    <%= label_tag(:job_position, "Job Position: ") %>
-    <%= f.text_field :job_position, :required => true %>
+    <%= label_tag(:different_pet, "What kind of pets?: ") %>
+    <% @other_types.each do |id, type| %>
+      <%= f.check_box :different_pet, {multiple: true, id: id}, type, false %>
+      <%= f.label type %>
+    <% end %>
   </div>
+
 
   <div class="actions">
     <%= f.submit %>
