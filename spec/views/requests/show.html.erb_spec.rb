@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "requests/show", type: :view do
   before(:each) do
-    @request = assign(:request, Request.create!())
+    @request = assign(:request, FactoryBot.create(:request))
   end
 
   it "renders attributes in <p>" do
