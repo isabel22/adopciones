@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-
+  <%= f.hidden_field(:animal_id, :value => params[:animal_id]) %>
   <div class="form-group">
     <%= label_tag(:uid, "Unique ID: ") %>
     <%= f.text_field :uid, :required => true %>

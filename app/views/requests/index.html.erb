@@ -1,25 +1,27 @@
-<p id="notice"><%= notice %></p>
+<body>
+  <div class="container">
+    <h1>Requests</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Animal</th>
+          <th>Adopter</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-<h1>Requests</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @requests.each do |request| %>
-      <tr>
-        <td><%= link_to 'Show', request_show_path(request) %></td>
-        <td><%= link_to 'Edit', edit_request_path(request) %></td>
-        <td><%= link_to 'Destroy', request_delete_path(request), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Request', new_request_path %>
+      <tbody>
+        <% @requests.each do |request| %>
+          <tr>
+            <% animal = Animal.find(request.animal_id) %>
+            <td><%= animal.name %></td>
+            <td><%= request.first_name %> <%= request.last_name %></td>
+            <td><%= link_to 'Show', request_show_path(request) %></td>
+            <td><%= link_to 'Edit', edit_request_path(request, animal_id: request.animal_id) %></td>
+            <td><%= link_to 'Destroy', request_delete_path(request), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</body>
