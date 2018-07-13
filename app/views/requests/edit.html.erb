@@ -1,0 +1,10 @@
+<div class="container">
+  <body>
+    <h1>Editing Request</h1>
+
+    <%= render partial: 'form', locals: { request: @request, path: request_update_path(@request.id) } %>
+
+    <%= link_to 'Show', request_show_path(@request) %> |
+    <%= link_to 'Back', requests_path %>
+  </body>
+</div>
