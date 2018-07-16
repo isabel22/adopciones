@@ -10,7 +10,8 @@
       <div class="card-columns">
       <% @animals.each do |animal| %>
         <div class="card">
-          <img class="card-img-top" src="test.jpg" alt=<%= animal.name%>>
+          <% profile_picture = animal.profile_picture || "test.jpg" %>
+          <img class="card-img-top" src=<%= profile_picture %> alt=<%= animal.name%>>
           <div class="card-body">
             <h5 class="card-title"><%= animal.name %></h5>
             <p class="card-text">
