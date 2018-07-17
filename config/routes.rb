@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   resources :requests, only: [:index, :new, :edit] do
     post :create
     get :show
-    delete :delete
     get :edit
     post :update
   end

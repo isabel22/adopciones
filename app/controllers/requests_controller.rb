@@ -41,13 +41,6 @@ class RequestsController < ApplicationController
     end
   end
 
-  def delete
-    request = Request.find(params[:request_id])
-    request.destroy
-
-    redirect_to requests_url, notice: 'Request was successfully destroyed.'
-  end
-
   private
 
   def set_request
