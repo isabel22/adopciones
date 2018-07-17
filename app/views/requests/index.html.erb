@@ -16,7 +16,7 @@
             <% animal = Animal.find(request.animal_id) %>
             <td><%= animal.name %></td>
             <td><%= request.first_name %> <%= request.last_name %></td>
-            <td><%= link_to 'Show', request_show_path(request) %></td>
+            <td><%= link_to 'Show', request_show_path(request, animal_id: request.animal_id) %></td>
             <td><%= link_to 'Edit', edit_request_path(request, animal_id: request.animal_id) %></td>
           </tr>
         <% end %>

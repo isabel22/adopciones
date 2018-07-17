@@ -7,6 +7,8 @@ class RequestsController < ApplicationController
   end
 
   def show
+    @animal = Animal.find(@request.animal_id)
+    @other_types = @animal.other_types
   end
 
   def new
