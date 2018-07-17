@@ -31,5 +31,7 @@ Rails.application.routes.draw do
     get :show
     get :edit
     post :update
+    get :approve
+    get :disapprove
   end
 end
