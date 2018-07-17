@@ -75,4 +75,20 @@ RSpec.describe RequestsController, type: :controller do
       end
     end
   end
+
+  describe "change status" do
+    it "approves the request" do
+      request = Request.create! valid_attributes
+      get :approve, params: { request_id: request.id }, session: valid_session
+      expect(request.reload.status).to eq('approved')
+      expect(response).to redirect_to(requests_url)
+    end
+
+    it "rejects the request" do
+      request = Request.create! valid_attributes
+      get :disapprove, params: { request_id: request.id }, session: valid_session
+      expect(request.reload.status).to eq('disapproved')
+      expect(response).to redirect_to(requests_url)
+    end
+  end
 end

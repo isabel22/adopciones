@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   skip_before_action :authenticate_user!
-  before_action :set_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_request, only: [:show, :edit, :update, :destroy, :approve, :disapprove]
 
   def index
     @requests = Request.all
@@ -39,6 +39,16 @@ class RequestsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def approve
+    @request.update(status: 'approved')
+    redirect_to requests_url, notice: 'Request approved successfully'
+  end
+
+  def disapprove
+    @request.update(status: 'disapproved')
+    redirect_to requests_url, alert: 'Request disapproved successfully'
   end
 
   private
