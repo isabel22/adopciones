@@ -1,4 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <body>
+    <h1>Request for <%= @animal.name %> </h1>
 
-<%= link_to 'Edit', edit_request_path(@request) %> |
-<%= link_to 'Back', requests_path %>
+    <%= render partial: 'form', locals: { request: @request, path: request_update_path(@request.id), disabled: true } %>
+
+    <%= link_to 'Edit', edit_request_path(@request, animal_id: @request.animal_id) %> |
+    <%= link_to 'Back', requests_path %>
+  </body>
+</div>

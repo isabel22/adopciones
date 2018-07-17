@@ -1,4 +1,9 @@
+<% disabled ||= false %>
+
 <%= form_for request, url: path, method: :post do |f| %>
+  <% if disabled %>
+    <fieldset disabled>
+  <% end %>
   <% if request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(request.errors.count, "error") %> prohibited this request from being saved:</h2>
@@ -78,8 +83,11 @@
     <% end %>
   </div>
 
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% if disabled %>
+    </fieldset>
+  <% else %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
 <% end %>
