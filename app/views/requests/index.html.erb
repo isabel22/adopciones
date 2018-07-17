@@ -18,7 +18,6 @@
             <td><%= request.first_name %> <%= request.last_name %></td>
             <td><%= link_to 'Show', request_show_path(request) %></td>
             <td><%= link_to 'Edit', edit_request_path(request, animal_id: request.animal_id) %></td>
-            <td><%= link_to 'Destroy', request_delete_path(request), method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>

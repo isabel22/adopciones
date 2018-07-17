@@ -75,19 +75,4 @@ RSpec.describe RequestsController, type: :controller do
       end
     end
   end
-
-  describe "DELETE #delete" do
-    it "destroys the requested request" do
-      request = Request.create! valid_attributes
-      expect {
-        delete :delete, params: {request_id: request.id}, session: valid_session
-      }.to change(Request, :count).by(-1)
-    end
-
-    it "redirects to the requests list" do
-      request = Request.create! valid_attributes
-      delete :delete, params: {request_id: request.id}, session: valid_session
-      expect(response).to redirect_to(requests_url)
-    end
-  end
 end
