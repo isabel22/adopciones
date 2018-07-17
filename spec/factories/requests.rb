@@ -15,6 +15,6 @@ FactoryBot.define do
     has_garden true
     can_escape false
     signature "JD"
-    status "Pending"
+    status "pending"
   end
 end
