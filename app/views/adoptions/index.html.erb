@@ -20,7 +20,7 @@
               <strong><%= animal.name %></strong> is a cute <strong><i><%= species.name %></i></strong> of breed <strong><i><%= breed.name %></i></strong>.
             </p>
             <p>
-              <a href="#" class="btn btn-primary" role="button">Apply to adopt</a>
+              <%= link_to 'Apply to adopt', new_request_path(animal_id: animal.id), html_options = { :class => "btn btn-primary" } %>
             </p>
           </div>
           <div class="card-footer">

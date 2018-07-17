@@ -14,8 +14,8 @@ class RequestsController < ApplicationController
   def new
     @request = Request.new
     animal_id = params[:animal_id]
-    animal = Animal.find(animal_id)
-    @other_types = animal.other_types
+    @animal = Animal.find(animal_id)
+    @other_types = @animal.other_types
   end
 
   def edit
