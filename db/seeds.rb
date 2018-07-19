@@ -16,3 +16,5 @@ end
 `bin/rake db:seed:cats`
 `bin/rake db:seed:birds`
 `bin/rake db:seed:rodents`
+
+`bin/rake db:seed:roles`
