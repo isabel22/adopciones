@@ -16,8 +16,14 @@
             <% animal = Animal.find(request.animal_id) %>
             <td><%= animal.name %></td>
             <td><%= request.first_name %> <%= request.last_name %></td>
-            <td><%= link_to 'Show', request_show_path(request, animal_id: request.animal_id) %></td>
-            <td><%= link_to 'Edit', edit_request_path(request, animal_id: request.animal_id) %></td>
+            <% if can? [:approve, :manage], request %>
+              <td><%= link_to 'Show', request_show_path(request, animal_id: request.animal_id) %></td>
+            <% end %>
+            <% if can?(:write, request) && request.status == "pending" %>
+              <td><%= link_to 'Edit', edit_request_path(request, animal_id: request.animal_id) %></td>
+            <% else %>
+              <td><%= request.status %></td>
+            <% end %>
           </tr>
         <% end %>
       </tbody>

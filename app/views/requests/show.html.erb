@@ -12,7 +12,6 @@
 
     <%= render partial: 'form', locals: { request: @request, path: request_update_path(@request.id), disabled: true } %>
 
-    <%= link_to 'Edit', edit_request_path(@request, animal_id: @request.animal_id) %> |
     <%= link_to 'Back', requests_path %>
   </div>
 </body>

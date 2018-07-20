@@ -29,10 +29,22 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
-    if user.has_role? :admin
+    if user.has_role? :super_admin
       can :manage, :all
-    else
-      can :read, :all
+    elsif user.has_role? :admin
+      can :manage, Animal
+      can :manage, AnimalBreed
+      can :manage, AnimalSpecy
+      can :manage, User
+      can :manage, Request
+    elsif user.has_role? :volunteer
+      can [:read, :approve], Request
+      can [:read, :write], Animal
+      can [:read, :write], AnimalBreed
+      can [:read, :write], AnimalSpecy
+    elsif user.has_role? :requester
+      can :write, Request
+      can :read, Request, :id => Request.where(email: user.email).pluck(:id)
     end
   end
 end
