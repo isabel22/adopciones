@@ -39,6 +39,10 @@
         <%= label_tag(:adoption_date, "Date of adoption: ") %>
         <%= f.date_field :adoption_date, :required => false %>
       </div>
+      <div class="form-group">
+        <%= label_tag(:profile_picture, "Profile picture: ") %>
+        <%= f.url_field :profile_picture, :required => true %>
+      </div>
       <%= submit_tag('Create', :class => "btn btn-primary") %>
     <% end %>
 

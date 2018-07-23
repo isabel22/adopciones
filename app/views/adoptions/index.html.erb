@@ -1,0 +1,43 @@
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>Adoptions</h1>
+      <h3><small>Adopt, don't shop</small></h3>
+    </div>
+
+    <br>
+    <div class="card-deck">
+      <div class="card-columns">
+      <% @animals.each do |animal| %>
+        <div class="card">
+          <% profile_picture = animal.profile_picture || "test.jpg" %>
+          <img class="card-img-top" src=<%= profile_picture %> alt=<%= animal.name%>>
+          <div class="card-body">
+            <h5 class="card-title"><%= animal.name %></h5>
+            <p class="card-text">
+              <% breed = AnimalBreed.find(animal.animal_breeds_id) %>
+              <% species = AnimalSpecy.find(breed.animal_species_id) %>
+              <strong><%= animal.name %></strong> is a cute <strong><i><%= species.name %></i></strong> of breed <strong><i><%= breed.name %></i></strong>.
+            </p>
+            <p>
+              <%= link_to 'Apply to adopt', new_request_path(animal_id: animal.id), html_options = { :class => "btn btn-primary" } %>
+            </p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">
+              <strong>
+                <%if animal.rescued %>
+                  Rescued on:
+                <% else %>
+                  Born on:
+                <% end %>
+              </strong>
+              <%= animal.birthdate_rescuedate.strftime("%d/%B/%Y") %>
+            </small>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    </div>
+  </div>
+</body>

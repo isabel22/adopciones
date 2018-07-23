@@ -1,0 +1,36 @@
+<body>
+  <div class="container">
+    <%= link_to 'Back', :back %>
+    <h1> Animal Breeds for <%= @animal_species.name %> </h1>
+
+    <div class="text-right">
+      <%= link_to "Add new", new_animal_specy_animal_breed_path(animal_specy_id: @animal_species.id), class: "btn btn-primary" %>
+      <%= link_to "Back", animal_species_path, class: "btn btn-primary" %>
+    </div><br>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Created at</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @animal_breeds.each do |breed| %>
+            <tr>
+              <td><%= breed.name %></td>
+              <td><%= breed.created_at %></td>
+              <td>
+                <%= link_to 'Show', animal_specy_animal_breed_show_path(animal_breed_id: breed.id) %>
+                <%= link_to 'Edit', animal_specy_animal_breed_edit_path(animal_breed_id: breed.id) %>
+                <%= link_to 'Delete', animal_specy_animal_breed_delete_path(animal_breed_id: breed.id), method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= link_to 'Back', :back %>
+  </div>
+</body>
