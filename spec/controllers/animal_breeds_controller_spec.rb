@@ -12,7 +12,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it "renders the index template" do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
       get :index, :params => {
         animal_specy_id: animal_specy.id
@@ -21,7 +21,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it 'assigns @animal_breeds' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
       get :index, :params => {
         animal_specy_id: animal_specy.id
@@ -43,7 +43,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it "renders the edit template" do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
       get :new, :params => {
         animal_specy_id: animal_specy.id
@@ -68,7 +68,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it 'creates a new animal species' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
 
       expect(AnimalBreed.count).to be(0)
@@ -96,7 +96,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it "renders the show template" do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
       get :show, :params => {
         animal_specy_id: animal_specy.id,
@@ -106,7 +106,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it 'assigns @animal_breed' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
       get :show, :params => {
         animal_specy_id: animal_specy.id,
@@ -133,7 +133,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it 'destroys the register for animal_specy_id' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:admin)
       sign_in user
 
       expect(AnimalBreed.count).to be(1)
@@ -158,7 +158,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it "renders the edit template" do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
       get :edit, :params => {
         animal_specy_id: animal_specy.id,
@@ -168,7 +168,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it 'assigns @animal' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:volunteer)
       sign_in user
       get :edit, :params => {
         animal_specy_id: animal_specy.id,
@@ -194,7 +194,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
     end
 
     it 'updates the register for animal_specy_id' do
-      user = FactoryBot.create(:user)
+      user = FactoryBot.create(:admin)
       sign_in user
 
       patch :update, :params => {

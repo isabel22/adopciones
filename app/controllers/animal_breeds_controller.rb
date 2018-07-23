@@ -33,14 +33,14 @@ class AnimalBreedsController < ApplicationController
   end
 
   def edit
+    authorize! :write, AnimalBreed
     @animal_species = AnimalSpecy.find(params[:animal_specy_id])
     @animal_breed = AnimalBreed.find(params[:animal_breed_id])
-    authorize! :read, @animal_breed
   end
 
   def update
+    authorize! :write, AnimalBreed
     animal_breed = AnimalBreed.find(params[:animal_breed_id])
-    authorize! :read, @animal_breed
 
     animal_breed.update!(safe_params)
     redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), notice: "Updated successfully")
