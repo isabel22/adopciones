@@ -5,6 +5,11 @@
     <h1>New animal</h1>
 
     <%= form_for Animal.new, as: :animal, url: animal_create_path(:animal), method: :post do |f| %>
+      <% if @errors.present? && @errors.full_messages.any? %>
+        <% @errors.full_messages.each do |error_message| %>
+          <%= error_message if @errors.full_messages.first == error_message %> <br />
+        <% end %>
+      <% end %>
       <div class="form-group">
         <%= label_tag(:name, "Name: ") %>
         <%= f.text_field :name, :required => true %>
