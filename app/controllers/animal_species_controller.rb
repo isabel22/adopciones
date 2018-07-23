@@ -1,27 +1,32 @@
 class AnimalSpeciesController < ApplicationController
   def index
+    authorize! :read, AnimalSpecy
     @animal_species = AnimalSpecy.order(name: :asc)
   end
 
   def new
-
+    authorize! :write, AnimalSpecy
   end
 
   def create
-    AnimalSpecy.create!(safe_params)
+    authorize! :write, AnimalSpecy
 
+    AnimalSpecy.create!(safe_params)
     redirect_to(animal_species_path, notice: "Created successfully")
   end
 
   def show
+    authorize! :read, AnimalSpecy
     @animal_species = AnimalSpecy.find(params[:animal_specy_id])
   end
 
   def edit
+    authorize! :write, AnimalSpecy
     @animal_species = AnimalSpecy.find(params[:animal_specy_id])
   end
 
   def update
+    authorize! :write, AnimalSpecy
     animal_species = AnimalSpecy.find(params[:animal_specy_id])
     animal_species.update!(safe_params)
 
@@ -29,6 +34,7 @@ class AnimalSpeciesController < ApplicationController
   end
 
   def delete
+    authorize! :manage, AnimalSpecy
     animal_species = AnimalSpecy.find(params[:animal_specy_id])
     animal_species.destroy
 
