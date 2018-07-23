@@ -1,0 +1,90 @@
+<% disabled ||= false %>
+
+<%= form_for request, url: path, method: :post do |f| %>
+  <% if disabled %>
+    <fieldset disabled>
+  <% end %>
+  <% if request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(request.errors.count, "error") %> prohibited this request from being saved:</h2>
+
+      <ul>
+      <% request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.hidden_field(:animal_id, :value => params[:animal_id]) %>
+  <div class="form-group">
+    <%= label_tag(:uid, "Unique ID: ") %>
+    <%= f.text_field :uid, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:first_name, "First Name: ") %>
+    <%= f.text_field :first_name, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:last_name, "Last Name: ") %>
+    <%= f.text_field :last_name, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:birthdate, "Date of Birth: ") %>
+    <%= f.date_field :birthdate, :required => true, max: Date.today, min: 100.years.ago %>
+  </div>
+  <%= f.hidden_field(:email, :value => current_user.email) %>
+  <div class="form-group">
+    <%= label_tag(:address, "Address: ") %>
+    <%= f.text_field :address, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:home_phone, "Home phone number: ") %>
+    <%= f.text_field :home_phone, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:cellphone, "Cellphone: ") %>
+    <%= f.text_field :cellphone, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:country, "Country: ") %>
+    <%= f.text_field :country, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:job_position, "Job Position: ") %>
+    <%= f.text_field :job_position %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:job_address, "Job Address: ") %>
+    <%= f.text_field :job_address %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:job_phone, "Job Phone: ") %>
+    <%= f.text_field :job_phone %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:references, "Three References: ") %>
+    <%= f.text_field :references, :required => true %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:other_pets, "Do you have other pets?: ") %>
+    <%= f.label :other_pets, "Yes", :value => true  %>
+    <%= f.radio_button :other_pets, true %>
+    <%= f.label :other_pets, "No", :value => false  %>
+    <%= f.radio_button :other_pets, false %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:different_pet, "What kind of pets?: ") %>
+    <% @other_types.each do |id, type| %>
+      <%= f.check_box :different_pet, {multiple: true, id: id, value: type}, type, false %>
+      <%= f.label type %>
+    <% end %>
+  </div>
+
+  <% if disabled %>
+    </fieldset>
+  <% else %>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+<% end %>

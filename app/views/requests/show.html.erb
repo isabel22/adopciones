@@ -1,0 +1,17 @@
+<body>
+  <div class="container">
+    <br>
+    <div class="text-right">
+      <% if @request.status == "pending" %>
+        <%= link_to "Approve", request_approve_path(@request.id), class: "btn btn-primary" %>
+        <%= link_to "Disapprove", request_disapprove_path(@request.id), class: "btn btn-danger" %>
+      <% end %>
+    </div><br>
+
+    <h1>Request for <%= @animal.name %> </h1>
+
+    <%= render partial: 'form', locals: { request: @request, path: request_update_path(@request.id), disabled: true } %>
+
+    <%= link_to 'Back', requests_path %>
+  </div>
+</body>
