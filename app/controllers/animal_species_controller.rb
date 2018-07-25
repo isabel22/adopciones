@@ -6,13 +6,20 @@ class AnimalSpeciesController < ApplicationController
 
   def new
     authorize! :write, AnimalSpecy
+    @animal_species = AnimalSpecy.new
   end
 
   def create
     authorize! :write, AnimalSpecy
 
-    AnimalSpecy.create!(safe_params)
-    redirect_to(animal_species_path, notice: "Created successfully")
+    @animal_species = AnimalSpecy.create(safe_params)
+
+    if @animal_species.valid?
+      redirect_to(animal_species_path, notice: "Created successfully")
+    else
+      flash[:alert] = @animal_species.errors.full_messages.join("<br/>").html_safe
+      render :new
+    end
   end
 
   def show
@@ -27,10 +34,15 @@ class AnimalSpeciesController < ApplicationController
 
   def update
     authorize! :write, AnimalSpecy
-    animal_species = AnimalSpecy.find(params[:animal_specy_id])
-    animal_species.update!(safe_params)
+    @animal_species = AnimalSpecy.find(params[:animal_specy_id])
+    @animal_species.update(safe_params)
 
-    redirect_to(animal_species_path, notice: "Animal species updated")
+    if @animal_species.valid?
+      redirect_to(animal_species_path, notice: "Animal species updated")
+    else
+      flash[:alert] = @animal_species.errors.full_messages.join("<br/>").html_safe
+      render :edit
+    end
   end
 
   def delete
