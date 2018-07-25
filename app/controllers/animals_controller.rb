@@ -24,30 +24,37 @@ class AnimalsController < ApplicationController
   end
 
   def update
-    animal = Animal.find(params[:animal_id])
-    authorize! :write, animal
+    @animal = Animal.find(params[:animal_id])
+    authorize! :write, @animal
 
-    animal.update(safe_params)
-    redirect_to(animals_path, notice: "Animal updated")
+    @animal.update(safe_params)
+
+    if @animal.valid?
+      redirect_to(animals_path, notice: "Animal updated")
+    else
+      flash[:alert] = @animal.errors.full_messages.join("<br/>").html_safe
+      render :edit
+    end
   end
 
   def new
     authorize! :write, Animal
     @animal_species = AnimalSpecy.all
     @animal_breeds = AnimalBreed.all
+    @animal = Animal.new
   end
 
   def create
     authorize! :write, Animal
-    animal = Animal.create(safe_params)
+    @animal = Animal.create(safe_params)
 
-    if animal.valid?
+    if @animal.valid?
       redirect_to(animals_path, notice: "Animal created")
     else
-      @errors = animal.errors
       @animal_species = AnimalSpecy.all
       @animal_breeds = AnimalBreed.all
-      render action: 'new', params: animal
+      flash[:alert] = @animal.errors.full_messages.join("<br/>").html_safe
+      render :new
     end
   end
 
