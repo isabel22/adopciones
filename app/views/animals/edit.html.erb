@@ -1,6 +1,6 @@
 <body>
   <div class="container">
-    <%= link_to 'Back', :back %>
+    <%= link_to 'Back', animals_path %>
 
     <h1>Update animal</h1>
 
@@ -11,7 +11,7 @@
       </div>
       <div class="form-group">
         <%= label_tag(:gender, "Gender: ") %>
-        <%= f.text_area :gender, :required => true %>
+        <%= f.select :gender, ['female', 'male'], include_blank: true, :required => true %>
       </div>
       <div class="form-group">
         <%= label_tag(:rescued, "Rescued: ") %>
@@ -37,6 +37,6 @@
       <%= submit_tag('Update', :class => "btn btn-primary") %>
     <% end %>
 
-    <br><%= link_to 'Back', :back %>
+    <br><%= link_to 'Back', animals_path %>
   </div>
 </body>
