@@ -157,8 +157,12 @@ RSpec.describe AnimalsController, type: :controller do
         animal_id: "animal",
         animal: {
           "name"=>"Maggie",
-          "gender"=>"Female",
-          "birthdate_rescuedate"=>Date.today
+          "gender"=>"female",
+          "birthdate_rescuedate"=>Date.today,
+          "profile_picture"=>"http://test.com/test.png",
+          "animal_breeds_id"=>FactoryBot.create(:animal_breed).id,
+          "rescued"=>true,
+          "adopted"=>false
         }
       }
       expect(Animal.count).to be(1)
