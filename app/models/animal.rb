@@ -13,8 +13,7 @@ class Animal < ApplicationRecord
 
   def other_types
     breed = AnimalBreed.find(self.animal_breeds_id)
-    species_id = AnimalSpecy.find(breed.animal_species_id).id
-    AnimalSpecy.where.not(id: species_id).pluck(:id, :name)
+    AnimalSpecy.where.not(id: breed.animal_specy_id).pluck(:id, :name)
   end
 
   private

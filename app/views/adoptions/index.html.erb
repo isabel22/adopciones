@@ -16,7 +16,7 @@
             <h5 class="card-title"><%= animal.name %></h5>
             <p class="card-text">
               <% breed = AnimalBreed.find(animal.animal_breeds_id) %>
-              <% species = AnimalSpecy.find(breed.animal_species_id) %>
+              <% species = AnimalSpecy.find(breed.animal_specy_id) %>
               <strong><%= animal.name %></strong> is a cute <strong><i><%= species.name %></i></strong> of breed <strong><i><%= breed.name %></i></strong>.
             </p>
             <p>
