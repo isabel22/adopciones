@@ -1,6 +1,6 @@
 <body>
   <div class="container">
-    <%= link_to 'Back', :back %>
+    <%= link_to 'Back', animal_specy_animal_breeds_path(params[:animal_specy_id]) %>
 
     <h1>New animal species for <%= @animal_species.name %> </h1>
 
@@ -9,10 +9,10 @@
         <%= label_tag(:name, "Name: ") %>
         <%= f.text_field :name, :required => true %>
       </div>
-      <%= f.hidden_field :animal_species_id, value: @animal_species.id %>
+      <%= f.hidden_field :animal_specy_id, value: @animal_species.id %>
       <%= submit_tag('Update', :class => "btn btn-primary") %>
     <% end %>
 
-    <br><%= link_to 'Back', :back %>
+    <br><%= link_to 'Back', animal_specy_animal_breeds_path(params[:animal_specy_id]) %>
   </div>
 </body>
