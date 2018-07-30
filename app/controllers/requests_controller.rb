@@ -13,15 +13,16 @@ class RequestsController < ApplicationController
 
   def show
     authorize! :approve, @request
-    @animal = Animal.find(@request.animal_id)
+    @animal_id = @request.animal_id
+    @animal = Animal.find(@animal_id)
     @other_types = @animal.other_types
   end
 
   def new
     authorize! :write, Request
     @request = Request.new
-    animal_id = params[:animal_id]
-    @animal = Animal.find(animal_id)
+    @animal_id = params[:animal_id] || params[:request][:animal_id]
+    @animal = Animal.find(@animal_id)
     @other_types = @animal.other_types
     @countries = all_countries
     @current_country = current_country
@@ -29,7 +30,8 @@ class RequestsController < ApplicationController
 
   def edit
     authorize! :write, Request
-    animal = Animal.find(@request.animal_id)
+    @animal_id = @request.animal_id
+    animal = Animal.find(@animal_id)
     @other_types = animal.other_types
     @countries = all_countries
     @current_country = @request.country
@@ -42,7 +44,8 @@ class RequestsController < ApplicationController
     if @request.save
       redirect_to requests_url, notice: 'Request was successfully created.'
     else
-      @animal = Animal.find(animal_id)
+      @animal_id = params[:animal_id] || params[:request][:animal_id]
+      @animal = Animal.find(@animal_id)
       @other_types = @animal.other_types
       @countries = all_countries
       @current_country = current_country
@@ -56,7 +59,8 @@ class RequestsController < ApplicationController
     if @request.update(request_params)
       redirect_to requests_url, notice: 'Request was successfully updated.'
     else
-      animal = Animal.find(@request.animal_id)
+      @animal_id = @request.animal_id
+      animal = Animal.find(@animal_id)
       @other_types = animal.other_types
       @countries = all_countries
       @current_country = @request.country
@@ -98,9 +102,7 @@ class RequestsController < ApplicationController
       :job_position,
       :job_address,
       :job_phone,
-      :references,
       :other_pets,
-      :different_pet,
       :puppy,
       :family_members,
       :all_agree,
@@ -112,7 +114,9 @@ class RequestsController < ApplicationController
       :can_escape,
       :signature,
       :status,
-      :animal_id
+      :animal_id,
+      different_pet: [],
+      references: [:full_name, :phone]
     )
   end
 
