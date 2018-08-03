@@ -1,6 +1,6 @@
 <body>
   <div class="container">
-    <%= link_to 'Back', :back %>
+    <%= link_to 'Back', animals_path %>
       <h1> <%= @animal.name %> </h1>
       <br>
       <img src=<%= @animal.profile_picture %> >
@@ -14,6 +14,6 @@
       <% else %>
         <p><span><strong>Waiting for a new home</strong></span></p>
       <% end %>
-    <%= link_to 'Back', :back %>
+    <%= link_to 'Back', animals_path %>
   </div>
 </body>

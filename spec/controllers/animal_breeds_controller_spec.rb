@@ -27,7 +27,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
         animal_specy_id: animal_specy.id
       }
 
-      breeds = FactoryBot.create(:animal_breed, animal_species_id: animal_specy.id)
+      breeds = FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id)
       expect(assigns(:animal_breeds)).to eq([breeds])
     end
   end
@@ -61,7 +61,8 @@ RSpec.describe AnimalBreedsController, type: :controller do
         animal_specy_id: animal_specy.id,
         animal_breed_id: 'animal_breed',
         animal_breed: {
-          "name"=>"Doggo"
+          "name"=>"Doggo",
+          "animal_specy_id"=>animal_specy.id
         }
       }
       expect(AnimalBreed.count).to be(0)
@@ -76,7 +77,8 @@ RSpec.describe AnimalBreedsController, type: :controller do
         animal_specy_id: animal_specy.id,
         animal_breed_id: 'animal_breed',
         animal_breed: {
-          "name"=>"Doggo"
+          "name"=>"Doggo",
+          "animal_specy_id"=>animal_specy.id
         }
       }
       expect(AnimalBreed.count).to be(1)
@@ -85,7 +87,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
 
   describe 'show' do
     let(:animal_specy) {FactoryBot.create(:animal_specy)}
-    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_species_id: animal_specy.id)}
+    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id)}
 
     it "does not render the show template" do
       get :show, :params => {
@@ -120,7 +122,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
   describe 'delete' do
     before(:each) do
       @animal_specy = FactoryBot.create(:animal_specy)
-      @animal_breed = FactoryBot.create(:animal_breed, animal_species_id: @animal_specy)
+      @animal_breed = FactoryBot.create(:animal_breed, animal_specy_id: @animal_specy.id)
     end
 
     it 'does not remove the animal_specy_id' do
@@ -147,7 +149,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
 
   describe 'edit' do
     let(:animal_specy) {FactoryBot.create(:animal_specy)}
-    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_species_id: animal_specy.id)}
+    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id)}
 
     it "does not render the edit template" do
       get :edit, :params => {
@@ -182,7 +184,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
 
   describe 'update' do
     let(:animal_specy) {FactoryBot.create(:animal_specy)}
-    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_species_id: animal_specy.id)}
+    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id)}
 
     it 'does not update the animal_id' do
       patch :update, :params => {

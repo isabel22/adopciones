@@ -42,8 +42,8 @@ def db_seed_dogs
   dog_id = dog.id
   csv.each do |row|
     breed = row['breed']
-    unless (AnimalBreed.where(name: breed, animal_species_id: dog_id).count > 0)
-      AnimalBreed.create(name: breed, animal_species_id: dog_id)
+    unless (AnimalBreed.where(name: breed, animal_specy_id: dog_id).count > 0)
+      AnimalBreed.create(name: breed, animal_specy_id: dog_id)
     end
   end
 end
@@ -55,8 +55,8 @@ def db_seed_cats
   cat_id = cat.id
   csv.each do |row|
     breed = row['breed']
-    unless (AnimalBreed.where(name: breed, animal_species_id: cat_id).count > 0)
-      AnimalBreed.create(name: breed, animal_species_id: cat_id)
+    unless (AnimalBreed.where(name: breed, animal_specy_id: cat_id).count > 0)
+      AnimalBreed.create(name: breed, animal_specy_id: cat_id)
     end
   end
 end
@@ -68,8 +68,8 @@ def db_seed_birds
   bird_id = bird.id
   csv.each do |row|
     breed = row['breed']
-    unless (AnimalBreed.where(name: breed, animal_species_id: bird_id).count > 0)
-      AnimalBreed.create(name: breed, animal_species_id: bird_id)
+    unless (AnimalBreed.where(name: breed, animal_specy_id: bird_id).count > 0)
+      AnimalBreed.create(name: breed, animal_specy_id: bird_id)
     end
   end
 end
@@ -81,8 +81,8 @@ def db_seed_rodents
   rodent_id = rodent.id
   csv.each do |row|
     breed = row['breed']
-    unless (AnimalBreed.where(name: breed, animal_species_id: rodent_id).count > 0)
-      AnimalBreed.create(name: breed, animal_species_id: rodent_id)
+    unless (AnimalBreed.where(name: breed, animal_specy_id: rodent_id).count > 0)
+      AnimalBreed.create(name: breed, animal_specy_id: rodent_id)
     end
   end
 end
