@@ -13,22 +13,30 @@ class RequestsController < ApplicationController
 
   def show
     authorize! :approve, @request
-    @animal = Animal.find(@request.animal_id)
+    @animal_id = @request.animal_id
+    @animal = Animal.find(@animal_id)
     @other_types = @animal.other_types
+    @countries = all_countries
+    @current_country = @request.country
   end
 
   def new
     authorize! :write, Request
     @request = Request.new
-    animal_id = params[:animal_id]
-    @animal = Animal.find(animal_id)
+    @animal_id = params[:animal_id] || params[:request][:animal_id]
+    @animal = Animal.find(@animal_id)
     @other_types = @animal.other_types
+    @countries = all_countries
+    @current_country = current_country
   end
 
   def edit
     authorize! :write, Request
-    animal = Animal.find(@request.animal_id)
-    @other_types = animal.other_types
+    @animal_id = @request.animal_id
+    @animal = Animal.find(@animal_id)
+    @other_types = @animal.other_types
+    @countries = all_countries
+    @current_country = @request.country
   end
 
   def create
@@ -38,6 +46,12 @@ class RequestsController < ApplicationController
     if @request.save
       redirect_to requests_url, notice: 'Request was successfully created.'
     else
+      @animal_id = params[:animal_id] || params[:request][:animal_id]
+      @animal = Animal.find(@animal_id)
+      @other_types = @animal.other_types
+      @countries = all_countries
+      @current_country = current_country
+      flash[:alert] = @request.errors.full_messages.join("<br/>").html_safe
       render :new
     end
   end
@@ -48,6 +62,12 @@ class RequestsController < ApplicationController
     if @request.update(request_params)
       redirect_to requests_url, notice: 'Request was successfully updated.'
     else
+      @animal_id = @request.animal_id
+      @animal = Animal.find(@animal_id)
+      @other_types = @animal.other_types
+      @countries = all_countries
+      @current_country = @request.country
+      flash[:alert] = @request.errors.full_messages.join("<br/>").html_safe
       render :edit
     end
   end
@@ -73,6 +93,7 @@ class RequestsController < ApplicationController
   end
 
   def request_params
+    set_other_pets
     params.require(:request).permit(
       :uid,
       :first_name,
@@ -86,9 +107,7 @@ class RequestsController < ApplicationController
       :job_position,
       :job_address,
       :job_phone,
-      :references,
       :other_pets,
-      :different_pet,
       :puppy,
       :family_members,
       :all_agree,
@@ -100,7 +119,24 @@ class RequestsController < ApplicationController
       :can_escape,
       :signature,
       :status,
-      :animal_id
+      :animal_id,
+      different_pet: []
     )
+  end
+
+  def all_countries
+    YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml')).values
+  end
+
+  def current_country
+    locale = Timeout::timeout(5) { Net::HTTP.get_response(URI.parse('http://api.hostip.info/country.php?ip=' + request.remote_ip )).body } rescue "US"
+    return 'US' if locale == 'XX'
+    YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml'))[locale]
+  end
+
+  def set_other_pets
+    if params[:request][:other_pets] == "false"
+      params[:request][:different_pet] = []
+    end
   end
 end

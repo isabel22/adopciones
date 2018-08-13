@@ -6,8 +6,9 @@ RSpec.describe "requests/show", type: :view do
     sign_in user
 
     @animal = FactoryBot.create(:animal)
-    @request = assign(:request, FactoryBot.create(:request, animal_id: @animal.id))
-    @other_types = assign(:other_types, @animal.other_types)
+    assign(:request, FactoryBot.create(:request, animal_id: @animal.id))
+    assign(:other_types, @animal.other_types)
+    assign(:countries, YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml')).values)
   end
 
   it "renders attributes in <p>" do
