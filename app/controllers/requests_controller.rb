@@ -16,6 +16,8 @@ class RequestsController < ApplicationController
     @animal_id = @request.animal_id
     @animal = Animal.find(@animal_id)
     @other_types = @animal.other_types
+    @countries = all_countries
+    @current_country = @request.country
   end
 
   def new

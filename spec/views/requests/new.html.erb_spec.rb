@@ -6,8 +6,9 @@ RSpec.describe "requests/new", type: :view do
     sign_in user
 
     assign(:request, Request.new())
-    animal = assign(:animal, FactoryBot.create(:animal))
-    @other_types = assign(:other_types, animal.other_types)
+    @animal = assign(:animal, FactoryBot.create(:animal))
+    assign(:other_types, @animal.other_types)
+    assign(:countries, YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml')).values)
   end
 
   it "renders new request form" do

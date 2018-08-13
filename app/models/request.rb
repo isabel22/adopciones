@@ -9,7 +9,7 @@ class Request < ApplicationRecord
   validates :place_to_be, :place_to_sleep, presence: true
   validate :date_cannot_be_in_the_future, :has_different_pet
 
-  has_many :references
+  has_many :references, dependent: :destroy 
 
   private
 
