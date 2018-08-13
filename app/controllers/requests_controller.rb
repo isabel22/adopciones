@@ -49,6 +49,7 @@ class RequestsController < ApplicationController
       @other_types = @animal.other_types
       @countries = all_countries
       @current_country = current_country
+      flash[:alert] = @request.errors.full_messages.join("<br/>").html_safe
       render :new
     end
   end
@@ -64,6 +65,7 @@ class RequestsController < ApplicationController
       @other_types = @animal.other_types
       @countries = all_countries
       @current_country = @request.country
+      flash[:alert] = @request.errors.full_messages.join("<br/>").html_safe
       render :edit
     end
   end
@@ -116,15 +118,6 @@ class RequestsController < ApplicationController
       :signature,
       :status,
       :animal_id,
-      :puppy,
-      :family_members,
-      :all_agree,
-      :type_of_home,
-      :own_home,
-      :place_to_be,
-      :place_to_sleep,
-      :has_garden,
-      :can_escape,
       different_pet: []
     )
   end
