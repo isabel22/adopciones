@@ -4,20 +4,9 @@
   <% if disabled %>
     <fieldset disabled>
   <% end %>
-  <% if request.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(request.errors.count, "error") %> prohibited this request from being saved:</h2>
-
-      <ul>
-      <% request.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <%= f.hidden_field(:animal_id, :value => params[:animal_id]) %>
+  <%= f.hidden_field(:animal_id, :value => @animal_id) %>
   <div class="form-group">
-    <%= label_tag(:uid, "Unique ID: ") %>
+    <%= label_tag(:uid, "National ID: ") %>
     <%= f.text_field :uid, :required => true %>
   </div>
   <div class="form-group">
@@ -47,7 +36,7 @@
   </div>
   <div class="form-group">
     <%= label_tag(:country, "Country: ") %>
-    <%= f.text_field :country, :required => true %>
+    <%= select_tag "request[country]", options_for_select(@countries, @current_country), required: true %>
   </div>
   <div class="form-group">
     <%= label_tag(:job_position, "Job Position: ") %>
@@ -62,24 +51,75 @@
     <%= f.text_field :job_phone %>
   </div>
   <div class="form-group">
-    <%= label_tag(:references, "Three References: ") %>
-    <%= f.text_field :references, :required => true %>
+    <%= label_tag(:puppy, "Do you prefer a puppy?: ") %>
+    <%= f.label :puppy, "Yes", :value => true  %>
+    <%= radio_button("request", "puppy", true) %>
+    <%= f.label :puppy, "No", :value => false  %>
+    <%= radio_button("request", "puppy", false) %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:family_members, "Please list the name and age of all the family members that will live with #{@animal.name}:") %>
+    <%= f.text_field :family_members %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:all_agree, "All the members of your family that live in your house agree to adopt a new pet?: ") %>
+    <%= f.label :all_agree, "Yes", :value => true  %>
+    <%= radio_button("request", "all_agree", "true") %>
+    <%= f.label :all_agree, "No", :value => false  %>
+    <%= radio_button("request", "all_agree", "false") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:type_of_home, "Choose the type of home where you live: ") %>
+    <%= f.label :type_of_home, "House in the city", :value => "house"  %>
+    <%= radio_button("request", "type_of_home", "house") %>
+    <%= f.label :type_of_home, "Apartment", :value => "apartment"  %>
+    <%= radio_button("request", "type_of_home", "apartment") %>
+    <%= f.label :type_of_home, "House out of the city", :value => "finca"  %>
+    <%= radio_button("request", "type_of_home", "finca") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:own_home, "Is the house/apartment where you live of your own property?: ") %>
+    <%= f.label :own_home, "Yes", :value => true  %>
+    <%= radio_button("request", "own_home", "true") %>
+    <%= f.label :own_home, "No", :value => false  %>
+    <%= radio_button("request", "own_home", "false") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:place_to_be, "Where is #{@animal.name} going to be during the day?") %>
+    <%= f.text_field :place_to_be %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:place_to_sleep, "Where is #{@animal.name} going to sleep?") %>
+    <%= f.text_field :place_to_sleep %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:has_garden, "Does your house/apartment has a garden?: ") %>
+    <%= f.label :has_garden, "Yes", :value => true  %>
+    <%= radio_button("request", "has_garden", "true") %>
+    <%= f.label :has_garden, "No", :value => false  %>
+    <%= radio_button("request", "has_garden", "false") %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:can_escape, "Is there a way where #{@animal.name} can escape?: ") %>
+    <%= f.label :can_escape, "Yes", :value => true  %>
+    <%= radio_button("request", "can_escape", "true") %>
+    <%= f.label :can_escape, "No", :value => false  %>
+    <%= radio_button("request", "can_escape", "false") %>
   </div>
   <div class="form-group">
     <%= label_tag(:other_pets, "Do you have other pets?: ") %>
     <%= f.label :other_pets, "Yes", :value => true  %>
-    <%= f.radio_button :other_pets, true %>
+    <%= radio_button("request", "other_pets", true) %>
     <%= f.label :other_pets, "No", :value => false  %>
-    <%= f.radio_button :other_pets, false %>
+    <%= radio_button("request", "other_pets", false) %>
   </div>
   <div class="form-group">
     <%= label_tag(:different_pet, "What kind of pets?: ") %>
     <% @other_types.each do |id, type| %>
-      <%= f.check_box :different_pet, {multiple: true, id: id, value: type}, type, false %>
+      <%= f.check_box :different_pet, {multiple: true}, type, nil %>
       <%= f.label type %>
     <% end %>
   </div>
-
   <% if disabled %>
     </fieldset>
   <% else %>

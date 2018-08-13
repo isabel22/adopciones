@@ -2,6 +2,7 @@ class Animal < ApplicationRecord
   # TODO: add different status instead of only set adopted / have control of
   # the animals history.
   has_one :animal_breed
+  has_many :requests, dependent: :destroy
   validates :name, presence: true
   validates :gender, inclusion: { in: %w(female male), message: "%{value} is not a valid gender" }, presence: true
   validates :birthdate_rescuedate, presence: true

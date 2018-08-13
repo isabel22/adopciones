@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_26_161514) do
+ActiveRecord::Schema.define(version: 2018_08_13_113225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,15 @@ ActiveRecord::Schema.define(version: 2018_07_26_161514) do
     t.index ["animal_breeds_id"], name: "index_animals_on_animal_breeds_id"
   end
 
+  create_table "references", force: :cascade do |t|
+    t.string "full_name"
+    t.string "phone"
+    t.bigint "request_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["request_id"], name: "index_references_on_request_id"
+  end
+
   create_table "requests", force: :cascade do |t|
     t.string "uid"
     t.string "first_name"
@@ -56,11 +65,10 @@ ActiveRecord::Schema.define(version: 2018_07_26_161514) do
     t.string "job_position"
     t.string "job_address"
     t.string "job_phone"
-    t.text "references", default: [], array: true
     t.boolean "other_pets"
     t.text "different_pet", default: [], array: true
     t.boolean "puppy"
-    t.text "family_members", default: [], array: true
+    t.string "family_members"
     t.boolean "all_agree"
     t.string "type_of_home"
     t.boolean "own_home"
@@ -112,4 +120,5 @@ ActiveRecord::Schema.define(version: 2018_07_26_161514) do
   end
 
   add_foreign_key "animals", "animal_breeds", column: "animal_breeds_id"
+  add_foreign_key "references", "requests"
 end
