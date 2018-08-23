@@ -73,3 +73,6 @@ gem 'rolify'
 
 gem 'bootstrap', '~> 4.1.2'
 gem 'jquery-rails'
+
+# Wicked gem. More info in: https://github.com/schneems/wicked
+gem 'wicked'
