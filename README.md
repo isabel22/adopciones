@@ -1,4 +1,4 @@
-# Adoptions [EN]
+# Adoptions [EN] ![Build Status](https://travis-ci.com/isabel22/adopciones.svg?branch=master)
 
 On this project, we are looking for a service where we will help organizations/shelters to:
 
