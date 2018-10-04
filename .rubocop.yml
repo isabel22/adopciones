@@ -1,14 +1,22 @@
 AllCops:
-  Includes:
-    - Rakefile
-    - config.ru
-  Excludes:
-    - db/**
-    - config/**
-    - script/**
+  Exclude:
     - bin/**
+    - db/**
+    - db/migrate/**
+    - config/**
+    - config/initializers/**
+    - script/**
 Documentation:
   Enabled: false
 Metrics/LineLength:
   # Change the default 80 chars limit value
   Max: 120
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  CountComments: false
+  Max: 200
+Metrics/ClassLength:
+  Max: 200
+Metrics/MethodLength:
+  Max: 10

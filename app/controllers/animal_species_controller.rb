@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnimalSpeciesController < ApplicationController
   def index
     authorize! :read, AnimalSpecy
@@ -15,9 +17,9 @@ class AnimalSpeciesController < ApplicationController
     @animal_species = AnimalSpecy.create(safe_params)
 
     if @animal_species.valid?
-      redirect_to(animal_species_path, notice: "Created successfully")
+      redirect_to(animal_species_path, notice: 'Created successfully')
     else
-      flash[:alert] = @animal_species.errors.full_messages.join("<br/>").html_safe
+      flash[:alert] = @animal_species.errors.full_messages.join('<br/>').html_safe
       render :new
     end
   end
@@ -38,9 +40,9 @@ class AnimalSpeciesController < ApplicationController
     @animal_species.update(safe_params)
 
     if @animal_species.valid?
-      redirect_to(animal_species_path, notice: "Animal species updated")
+      redirect_to(animal_species_path, notice: 'Animal species updated')
     else
-      flash[:alert] = @animal_species.errors.full_messages.join("<br/>").html_safe
+      flash[:alert] = @animal_species.errors.full_messages.join('<br/>').html_safe
       render :edit
     end
   end
@@ -50,7 +52,7 @@ class AnimalSpeciesController < ApplicationController
     animal_species = AnimalSpecy.find(params[:animal_specy_id])
     animal_species.destroy
 
-    redirect_to(animal_species_path, alert: "Animal species deleted")
+    redirect_to(animal_species_path, alert: 'Animal species deleted')
   end
 
   private

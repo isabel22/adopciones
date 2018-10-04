@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AnimalSpeciesController, type: :controller do
   describe 'index' do
-    it "does not render the index template" do
+    it 'does not render the index template' do
       get :index
-      expect(response).not_to render_template("index")
+      expect(response).not_to render_template('index')
     end
 
-    it "renders the index template" do
+    it 'renders the index template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
       get :index
-      expect(response).to render_template("index")
+      expect(response).to render_template('index')
     end
 
     it 'assigns @animal_species' do
@@ -25,26 +27,26 @@ RSpec.describe AnimalSpeciesController, type: :controller do
   end
 
   describe 'new' do
-    it "does not render the new template" do
+    it 'does not render the new template' do
       get :new
-      expect(response).not_to render_template("new")
+      expect(response).not_to render_template('new')
     end
 
-    it "renders the edit template" do
+    it 'renders the edit template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
       get :new
-      expect(response).to render_template("new")
+      expect(response).to render_template('new')
     end
   end
 
   describe 'create' do
     it 'does not create an animal species' do
       expect(AnimalSpecy.count).to be(0)
-      patch :create, :params => {
-        animal_specy_id: "animal_specy",
+      patch :create, params: {
+        animal_specy_id: 'animal_specy',
         animal_specy: {
-          "name"=>"Mammal"
+          'name' => 'Mammal'
         }
       }
       expect(AnimalSpecy.count).to be(0)
@@ -55,10 +57,10 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       sign_in user
 
       expect(AnimalSpecy.count).to be(0)
-      patch :create, :params => {
-        animal_specy_id: "animal_specy",
+      patch :create, params: {
+        animal_specy_id: 'animal_specy',
         animal_specy: {
-          "name"=>"Mammal"
+          'name' => 'Mammal'
         }
       }
       expect(AnimalSpecy.count).to be(1)
@@ -66,58 +68,58 @@ RSpec.describe AnimalSpeciesController, type: :controller do
   end
 
   describe 'show' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
 
-    it "does not render the show template" do
-      get :show, :params => {animal_specy_id: animal_specy.id}
-      expect(response).not_to render_template("show")
+    it 'does not render the show template' do
+      get :show, params: { animal_specy_id: animal_specy.id }
+      expect(response).not_to render_template('show')
     end
 
-    it "renders the show template" do
+    it 'renders the show template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :show, :params => {animal_specy_id: animal_specy.id}
-      expect(response).to render_template("show")
+      get :show, params: { animal_specy_id: animal_specy.id }
+      expect(response).to render_template('show')
     end
 
     it 'assigns @animal_species' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :show, :params => {animal_specy_id: animal_specy.id}
+      get :show, params: { animal_specy_id: animal_specy.id }
 
       expect(assigns(:animal_species)).to eq(animal_specy)
     end
   end
 
   describe 'edit' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
 
-    it "does not render the edit template" do
-      get :edit, :params => {animal_specy_id: animal_specy.id}
-      expect(response).not_to render_template("edit")
+    it 'does not render the edit template' do
+      get :edit, params: { animal_specy_id: animal_specy.id }
+      expect(response).not_to render_template('edit')
     end
 
-    it "renders the edit template" do
+    it 'renders the edit template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :edit, :params => {animal_specy_id: animal_specy.id}
-      expect(response).to render_template("edit")
+      get :edit, params: { animal_specy_id: animal_specy.id }
+      expect(response).to render_template('edit')
     end
 
     it 'assigns @animal' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :edit, :params => {animal_specy_id: animal_specy.id}
+      get :edit, params: { animal_specy_id: animal_specy.id }
 
       expect(assigns(:animal_species)).to eq(animal_specy)
     end
   end
 
   describe 'update' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
 
     it 'does not update the animal_id' do
-      patch :update, :params => {animal_specy_id: animal_specy.id, animal_specy: {"name"=>"Mammal"}}
+      patch :update, params: { animal_specy_id: animal_specy.id, animal_specy: { 'name' => 'Mammal' } }
       expect(animal_specy.reload.name).to match('Dog')
     end
 
@@ -125,7 +127,7 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       user = FactoryBot.create(:volunteer)
       sign_in user
 
-      patch :update, :params => {animal_specy_id: animal_specy.id, animal_specy: {"name"=>"Mammal"}}
+      patch :update, params: { animal_specy_id: animal_specy.id, animal_specy: { 'name' => 'Mammal' } }
       expect(animal_specy.reload.name).to eq('Mammal')
     end
   end
@@ -137,7 +139,7 @@ RSpec.describe AnimalSpeciesController, type: :controller do
 
     it 'does not remove the animal_specy_id' do
       expect(AnimalSpecy.count).to be(1)
-      delete :delete, :params => {animal_specy_id: @animal_specy.id}
+      delete :delete, params: { animal_specy_id: @animal_specy.id }
       expect(AnimalSpecy.count).to be(1)
     end
 
@@ -146,7 +148,7 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       sign_in user
 
       expect(AnimalSpecy.count).to be(1)
-      delete :delete, :params => {animal_specy_id: @animal_specy.id}
+      delete :delete, params: { animal_specy_id: @animal_specy.id }
       expect(AnimalSpecy.count).to be(0)
     end
   end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnimalBreedsController < ApplicationController
   def index
     authorize! :read, AnimalBreed
@@ -17,10 +19,10 @@ class AnimalBreedsController < ApplicationController
     @animal_breed = AnimalBreed.create(safe_params)
 
     if @animal_breed.valid?
-      redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), notice: "Created successfully")
+      redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), notice: 'Created successfully')
     else
       @animal_species = AnimalSpecy.find(params[:animal_specy_id])
-      flash[:alert] = @animal_breed.errors.full_messages.join("<br/>").html_safe
+      flash[:alert] = @animal_breed.errors.full_messages.join('<br/>').html_safe
       render :new
     end
   end
@@ -36,7 +38,7 @@ class AnimalBreedsController < ApplicationController
     animal_breed = AnimalBreed.find(params[:animal_breed_id])
     animal_breed.destroy
 
-    redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), alert: "Animal breed deleted")
+    redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), alert: 'Animal breed deleted')
   end
 
   def edit
@@ -51,10 +53,10 @@ class AnimalBreedsController < ApplicationController
 
     @animal_breed.update(safe_params)
     if @animal_breed.valid?
-      redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), notice: "Updated successfully")
+      redirect_to(animal_specy_animal_breeds_path(params[:animal_specy_id]), notice: 'Updated successfully')
     else
       @animal_species = AnimalSpecy.find(params[:animal_specy_id])
-      flash[:alert] = @animal_breed.errors.full_messages.join("<br/>").html_safe
+      flash[:alert] = @animal_breed.errors.full_messages.join('<br/>').html_safe
       render :edit
     end
   end

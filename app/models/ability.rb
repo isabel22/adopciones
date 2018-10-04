@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ability
   include CanCan::Ability
 
@@ -32,19 +34,33 @@ class Ability
     if user.has_role? :super_admin
       can :manage, :all
     elsif user.has_role? :admin
-      can :manage, Animal
-      can :manage, AnimalBreed
-      can :manage, AnimalSpecy
-      can :manage, User
-      can :manage, Request
+      give_admin_permissions
     elsif user.has_role? :volunteer
-      can [:read, :approve], Request
-      can [:read, :write], Animal
-      can [:read, :write], AnimalBreed
-      can [:read, :write], AnimalSpecy
+      give_volunteer_permissions
     elsif user.has_role? :requester
-      can :write, Request
-      can :read, Request, :id => Request.where(email: user.email).pluck(:id)
+      give_requester_permissions(user)
     end
+  end
+
+  private
+
+  def give_admin_permissions
+    can :manage, Animal
+    can :manage, AnimalBreed
+    can :manage, AnimalSpecy
+    can :manage, User
+    can :manage, Request
+  end
+
+  def give_volunteer_permissions
+    can %i[read approve], Request
+    can %i[read write], Animal
+    can %i[read write], AnimalBreed
+    can %i[read write], AnimalSpecy
+  end
+
+  def give_requester_permissions(user)
+    can :write, Request
+    can :read, Request, id: Request.where(email: user.email).pluck(:id)
   end
 end

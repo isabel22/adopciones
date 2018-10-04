@@ -1,29 +1,31 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AnimalBreedsController, type: :controller do
   describe 'index' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
 
-    it "does not render the index template" do
-      get :index, :params => {
+    it 'does not render the index template' do
+      get :index, params: {
         animal_specy_id: animal_specy.id
       }
-      expect(response).not_to render_template("index")
+      expect(response).not_to render_template('index')
     end
 
-    it "renders the index template" do
+    it 'renders the index template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :index, :params => {
+      get :index, params: {
         animal_specy_id: animal_specy.id
       }
-      expect(response).to render_template("index")
+      expect(response).to render_template('index')
     end
 
     it 'assigns @animal_breeds' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :index, :params => {
+      get :index, params: {
         animal_specy_id: animal_specy.id
       }
 
@@ -33,36 +35,36 @@ RSpec.describe AnimalBreedsController, type: :controller do
   end
 
   describe 'new' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
 
-    it "does not render the new template" do
-      get :new, :params => {
+    it 'does not render the new template' do
+      get :new, params: {
         animal_specy_id: animal_specy.id
       }
-      expect(response).not_to render_template("new")
+      expect(response).not_to render_template('new')
     end
 
-    it "renders the edit template" do
+    it 'renders the edit template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :new, :params => {
+      get :new, params: {
         animal_specy_id: animal_specy.id
       }
-      expect(response).to render_template("new")
+      expect(response).to render_template('new')
     end
   end
 
   describe 'create' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
 
     it 'does not create an animal breed' do
       expect(AnimalBreed.count).to be(0)
-      patch :create, :params => {
+      patch :create, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: 'animal_breed',
         animal_breed: {
-          "name"=>"Doggo",
-          "animal_specy_id"=>animal_specy.id
+          'name' => 'Doggo',
+          'animal_specy_id' => animal_specy.id
         }
       }
       expect(AnimalBreed.count).to be(0)
@@ -73,12 +75,12 @@ RSpec.describe AnimalBreedsController, type: :controller do
       sign_in user
 
       expect(AnimalBreed.count).to be(0)
-      patch :create, :params => {
+      patch :create, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: 'animal_breed',
         animal_breed: {
-          "name"=>"Doggo",
-          "animal_specy_id"=>animal_specy.id
+          'name' => 'Doggo',
+          'animal_specy_id' => animal_specy.id
         }
       }
       expect(AnimalBreed.count).to be(1)
@@ -86,31 +88,31 @@ RSpec.describe AnimalBreedsController, type: :controller do
   end
 
   describe 'show' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
-    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
+    let(:animal_breed) { FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id) }
 
-    it "does not render the show template" do
-      get :show, :params => {
+    it 'does not render the show template' do
+      get :show, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id
       }
-      expect(response).not_to render_template("show")
+      expect(response).not_to render_template('show')
     end
 
-    it "renders the show template" do
+    it 'renders the show template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :show, :params => {
+      get :show, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id
       }
-      expect(response).to render_template("show")
+      expect(response).to render_template('show')
     end
 
     it 'assigns @animal_breed' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :show, :params => {
+      get :show, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id
       }
@@ -127,7 +129,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
 
     it 'does not remove the animal_specy_id' do
       expect(AnimalBreed.count).to be(1)
-      delete :delete, :params => {
+      delete :delete, params: {
         animal_specy_id: @animal_specy.id,
         animal_breed_id: @animal_breed.id
       }
@@ -139,7 +141,7 @@ RSpec.describe AnimalBreedsController, type: :controller do
       sign_in user
 
       expect(AnimalBreed.count).to be(1)
-      delete :delete, :params => {
+      delete :delete, params: {
         animal_specy_id: @animal_specy.id,
         animal_breed_id: @animal_breed.id
       }
@@ -148,31 +150,31 @@ RSpec.describe AnimalBreedsController, type: :controller do
   end
 
   describe 'edit' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
-    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
+    let(:animal_breed) { FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id) }
 
-    it "does not render the edit template" do
-      get :edit, :params => {
+    it 'does not render the edit template' do
+      get :edit, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id
       }
-      expect(response).not_to render_template("edit")
+      expect(response).not_to render_template('edit')
     end
 
-    it "renders the edit template" do
+    it 'renders the edit template' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :edit, :params => {
+      get :edit, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id
       }
-      expect(response).to render_template("edit")
+      expect(response).to render_template('edit')
     end
 
     it 'assigns @animal' do
       user = FactoryBot.create(:volunteer)
       sign_in user
-      get :edit, :params => {
+      get :edit, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id
       }
@@ -183,14 +185,14 @@ RSpec.describe AnimalBreedsController, type: :controller do
   end
 
   describe 'update' do
-    let(:animal_specy) {FactoryBot.create(:animal_specy)}
-    let(:animal_breed) {FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id)}
+    let(:animal_specy) { FactoryBot.create(:animal_specy) }
+    let(:animal_breed) { FactoryBot.create(:animal_breed, animal_specy_id: animal_specy.id) }
 
     it 'does not update the animal_id' do
-      patch :update, :params => {
+      patch :update, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id,
-        animal_breed: {"name" => "Another breed"}
+        animal_breed: { 'name' => 'Another breed' }
       }
       expect(animal_breed.reload.name).to match('Breed')
     end
@@ -199,10 +201,10 @@ RSpec.describe AnimalBreedsController, type: :controller do
       user = FactoryBot.create(:admin)
       sign_in user
 
-      patch :update, :params => {
+      patch :update, params: {
         animal_specy_id: animal_specy.id,
         animal_breed_id: animal_breed.id,
-        animal_breed: {"name" => "Another breed"}
+        animal_breed: { 'name' => 'Another breed' }
       }
       expect(animal_breed.reload.name).to eq('Another breed')
     end

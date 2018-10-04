@@ -1,42 +1,36 @@
+# frozen_string_literal: true
+
 class RequestsController < ApplicationController
-  before_action :set_request, only: [:show, :edit, :update, :destroy, :approve, :disapprove]
+  before_action :set_request, only: %i[show edit update destroy approve disapprove]
 
   def index
     authorize! :read, Request
 
-    if current_user.has_role? :requester
-      @requests = Request.where(email: current_user.email)
-    else
-      @requests = Request.all
-    end
+    @requests = if current_user.has_role? :requester
+                  Request.where(email: current_user.email)
+                else
+                  Request.all
+                end
   end
 
   def show
     authorize! :approve, @request
     @animal_id = @request.animal_id
-    @animal = Animal.find(@animal_id)
-    @other_types = @animal.other_types
-    @countries = all_countries
-    @current_country = @request.country
+    default_values_for_request
   end
 
   def new
     authorize! :write, Request
     @request = Request.new
     @animal_id = params[:animal_id] || params[:request][:animal_id]
-    @animal = Animal.find(@animal_id)
-    @other_types = @animal.other_types
-    @countries = all_countries
-    @current_country = current_country
+    default_values_for_request
+    @current_country = country_from_current_location
   end
 
   def edit
     authorize! :write, Request
     @animal_id = @request.animal_id
-    @animal = Animal.find(@animal_id)
-    @other_types = @animal.other_types
-    @countries = all_countries
-    @current_country = @request.country
+    default_values_for_request
   end
 
   def create
@@ -47,11 +41,8 @@ class RequestsController < ApplicationController
       redirect_to requests_url, notice: 'Request was successfully created.'
     else
       @animal_id = params[:animal_id] || params[:request][:animal_id]
-      @animal = Animal.find(@animal_id)
-      @other_types = @animal.other_types
-      @countries = all_countries
-      @current_country = current_country
-      flash[:alert] = @request.errors.full_messages.join("<br/>").html_safe
+      default_values_for_request
+      flash[:alert] = @request.errors.full_messages.join('<br/>').html_safe
       render :new
     end
   end
@@ -63,11 +54,8 @@ class RequestsController < ApplicationController
       redirect_to requests_url, notice: 'Request was successfully updated.'
     else
       @animal_id = @request.animal_id
-      @animal = Animal.find(@animal_id)
-      @other_types = @animal.other_types
-      @countries = all_countries
-      @current_country = @request.country
-      flash[:alert] = @request.errors.full_messages.join("<br/>").html_safe
+      default_values_for_request
+      flash[:alert] = @request.errors.full_messages.join('<br/>').html_safe
       render :edit
     end
   end
@@ -95,31 +83,10 @@ class RequestsController < ApplicationController
   def request_params
     set_other_pets
     params.require(:request).permit(
-      :uid,
-      :first_name,
-      :last_name,
-      :birthdate,
-      :email,
-      :address,
-      :home_phone,
-      :cellphone,
-      :country,
-      :job_position,
-      :job_address,
-      :job_phone,
-      :other_pets,
-      :puppy,
-      :family_members,
-      :all_agree,
-      :type_of_home,
-      :own_home,
-      :place_to_be,
-      :place_to_sleep,
-      :has_garden,
-      :can_escape,
-      :signature,
-      :status,
-      :animal_id,
+      :uid, :first_name, :last_name, :birthdate, :email, :address, :home_phone,
+      :cellphone, :country, :job_position, :job_address, :job_phone, :other_pets,
+      :puppy, :family_members, :all_agree, :type_of_home, :own_home, :place_to_be,
+      :place_to_sleep, :has_garden, :can_escape, :signature, :status, :animal_id,
       different_pet: []
     )
   end
@@ -128,15 +95,30 @@ class RequestsController < ApplicationController
     YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml')).values
   end
 
-  def current_country
-    locale = Timeout::timeout(5) { Net::HTTP.get_response(URI.parse('http://api.hostip.info/country.php?ip=' + request.remote_ip )).body } rescue "US"
-    return 'US' if locale == 'XX'
-    YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml'))[locale]
+  def localize_current_country
+    Timeout.timeout(5) do
+      Net::HTTP.get_response(URI.parse(
+                               'http://api.hostip.info/country.php?ip=' + request.remote_ip
+                             )).body
+    end
+  rescue StandardError
+    'US'
   end
 
   def set_other_pets
-    if params[:request][:other_pets] == "false"
-      params[:request][:different_pet] = []
-    end
+    params[:request][:different_pet] = [] if params[:request][:other_pets] == 'false'
+  end
+
+  def default_values_for_request
+    @animal = Animal.find(@animal_id)
+    @other_types = @animal.other_types
+    @countries = all_countries
+    @current_country = @request.country
+  end
+
+  def country_from_current_location
+    locale = localize_current_country
+    locale = 'US' if locale == 'XX'
+    YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml'))[locale]
   end
 end
