@@ -57,6 +57,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'rails-controller-testing'
   gem 'rubocop'
+  gem 'rubocop-rspec'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
