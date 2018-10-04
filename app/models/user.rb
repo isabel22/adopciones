@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   rolify
   after_create :set_default_role
@@ -7,12 +9,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   def can_be_removed?
-    Request.where(email: self.email).count == 0
+    Request.where(email: email).count.zero?
   end
 
   private
 
   def set_default_role
-    self.add_role(:requester) if self.roles.blank?
+    add_role(:requester) if roles.blank?
   end
 end
