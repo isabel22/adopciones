@@ -70,5 +70,5 @@ gem 'cancancan'
 gem 'devise'
 gem 'rolify'
 
-gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap', '~> 4.1.2'
 gem 'jquery-rails'
