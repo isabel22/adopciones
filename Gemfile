@@ -56,6 +56,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.7', '>= 1.7.0'
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'rails-controller-testing'
+  gem "rubocop-rails"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
