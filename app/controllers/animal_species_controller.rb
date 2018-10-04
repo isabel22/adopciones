@@ -58,6 +58,6 @@ class AnimalSpeciesController < ApplicationController
   private
 
   def safe_params
-    params.require(:animal_specy).permit!
+    params.require(:animal_specy).permit(:id, :name)
   end
 end

@@ -7,7 +7,7 @@
       <br>
       <span><strong>Created at: </strong><%= @animal.created_at %> </span><br>
 
-      <p><%= @animal.gender.html_safe if @animal.gender.present? %></p>
+      <p><%= @animal.gender if @animal.gender.present? %></p>
 
       <% if @animal.adopted %>
         <p><span><strong>Adopted</strong> on <%= @animal.adoption_date %></span></p>
