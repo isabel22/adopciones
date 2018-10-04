@@ -5,35 +5,7 @@
     <fieldset disabled>
   <% end %>
   <%= f.hidden_field(:animal_id, :value => @animal_id) %>
-  <div class="form-group">
-    <%= label_tag(:uid, "National ID: ") %>
-    <%= f.text_field :uid, :required => true %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:first_name, "First Name: ") %>
-    <%= f.text_field :first_name, :required => true %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:last_name, "Last Name: ") %>
-    <%= f.text_field :last_name, :required => true %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:birthdate, "Date of Birth: ") %>
-    <%= f.date_field :birthdate, :required => true, max: Date.today, min: 100.years.ago %>
-  </div>
-  <%= f.hidden_field(:email, :value => current_user.email) %>
-  <div class="form-group">
-    <%= label_tag(:address, "Address: ") %>
-    <%= f.text_field :address, :required => true %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:home_phone, "Home phone number: ") %>
-    <%= f.text_field :home_phone, :required => true %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:cellphone, "Cellphone: ") %>
-    <%= f.text_field :cellphone, :required => true %>
-  </div>
+  <!-- Personal fields -->
   <div class="form-group">
     <%= label_tag(:country, "Country: ") %>
     <%= select_tag "request[country]", options_for_select(@countries, @current_country), required: true %>
@@ -51,18 +23,11 @@
     <%= f.text_field :job_phone %>
   </div>
   <div class="form-group">
-    <%= label_tag(:puppy, "Do you prefer a puppy?: ") %>
-    <%= f.label :puppy, "Yes", :value => true  %>
-    <%= radio_button("request", "puppy", true) %>
-    <%= f.label :puppy, "No", :value => false  %>
-    <%= radio_button("request", "puppy", false) %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:family_members, "Please list the name and age of all the family members that will live with #{@animal.name}:") %>
+    <%= label_tag(:family_members, "Please list the name and age of all the members that will live with #{@animal.name}:") %>
     <%= f.text_field :family_members %>
   </div>
   <div class="form-group">
-    <%= label_tag(:all_agree, "All the members of your family that live in your house agree to adopt a new pet?: ") %>
+    <%= label_tag(:all_agree, "All the people that live in your house agree to adopt a new pet?: ") %>
     <%= f.label :all_agree, "Yes", :value => true  %>
     <%= radio_button("request", "all_agree", "true") %>
     <%= f.label :all_agree, "No", :value => false  %>
@@ -85,6 +50,27 @@
     <%= radio_button("request", "own_home", "false") %>
   </div>
   <div class="form-group">
+    <%= label_tag(:puppy, "Do you prefer a puppy?: ") %>
+    <%= f.label :puppy, "Yes", :value => true  %>
+    <%= radio_button("request", "puppy", true) %>
+    <%= f.label :puppy, "No", :value => false  %>
+    <%= radio_button("request", "puppy", false) %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:other_pets, "Do you have other pets?: ") %>
+    <%= f.label :other_pets, "Yes", :value => true  %>
+    <%= radio_button("request", "other_pets", true) %>
+    <%= f.label :other_pets, "No", :value => false  %>
+    <%= radio_button("request", "other_pets", false) %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:different_pet, "What kind of pets?: ") %>
+    <% @other_types.each do |id, type| %>
+      <%= f.check_box :different_pet, {multiple: true}, type, nil %>
+      <%= f.label type %>
+    <% end %>
+  </div>
+  <div class="form-group">
     <%= label_tag(:place_to_be, "Where is #{@animal.name} going to be during the day?") %>
     <%= f.text_field :place_to_be %>
   </div>
@@ -105,20 +91,6 @@
     <%= radio_button("request", "can_escape", "true") %>
     <%= f.label :can_escape, "No", :value => false  %>
     <%= radio_button("request", "can_escape", "false") %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:other_pets, "Do you have other pets?: ") %>
-    <%= f.label :other_pets, "Yes", :value => true  %>
-    <%= radio_button("request", "other_pets", true) %>
-    <%= f.label :other_pets, "No", :value => false  %>
-    <%= radio_button("request", "other_pets", false) %>
-  </div>
-  <div class="form-group">
-    <%= label_tag(:different_pet, "What kind of pets?: ") %>
-    <% @other_types.each do |id, type| %>
-      <%= f.check_box :different_pet, {multiple: true}, type, nil %>
-      <%= f.label type %>
-    <% end %>
   </div>
   <% if disabled %>
     </fieldset>

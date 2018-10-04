@@ -2,7 +2,7 @@
   <div class="container">
     <h1>New Request for <%= @animal.name %></h1>
 
-    <%= render partial: 'form', locals: { request: @request, path: request_create_path("request_id") } %>
+    <%= link_to 'Next', wizard_path(:personal) %>
 
     <%= link_to 'Back', root_path %>
   </div>

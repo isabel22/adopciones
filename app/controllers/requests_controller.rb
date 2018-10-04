@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class RequestsController < ApplicationController
+  include Wicked::Wizard
   before_action :set_request, only: %i[show edit update destroy approve disapprove]
+  steps :personal, :job, :family, :pets, :living
 
   def index
     authorize! :read, Request
@@ -21,10 +23,40 @@ class RequestsController < ApplicationController
 
   def new
     authorize! :write, Request
-    @request = Request.new
+    @request = Request.new(animal_id: params[:animal_id])
+
     @animal_id = params[:animal_id] || params[:request][:animal_id]
     default_values_for_request
     @current_country = country_from_current_location
+    # setup_wizard
+    # puts "123 pasando... #{step} - #{wizard_path}"
+    case step
+    when :personal
+      render_wizard
+      # @request = Request.new
+      puts "456 pasando..."
+      # if @request.save
+        # next_wizard_path(@request.id)
+    #   else
+    #     flash[:alert] = @request.errors.full_messages.join("<br/>").html_safe
+    #   end
+    when :job
+    #   @request = Request.find(params[:request_id])
+      render_wizard
+    when :family
+    #   @request = Request.find(params[:request_id])
+      render_wizard
+    #
+    when :pets
+    #   @request = Request.find(params[:request_id])
+      render_wizard
+    #
+    when :living
+    #   @request = Request.find(params[:request_id])
+      render_wizard
+    #
+    end
+    # render_wizard(@request)
   end
 
   def edit
@@ -50,6 +82,20 @@ class RequestsController < ApplicationController
   def update
     authorize! :write, @request
 
+    case step
+    when :personal
+      puts "hey!!"
+    when :job
+      @request = Request.find(params[:request_id])
+    when :family
+      @request = Request.find(params[:request_id])
+    when :pets
+      @request = Request.find(params[:request_id])
+    when :living
+      @request = Request.find(params[:request_id])
+    end
+    render_wizard @request
+
     if @request.update(request_params)
       redirect_to requests_url, notice: 'Request was successfully updated.'
     else
@@ -72,6 +118,17 @@ class RequestsController < ApplicationController
 
     @request.update(status: 'disapproved')
     redirect_to requests_url, alert: 'Request disapproved successfully'
+  end
+
+  def finish_wizard_path
+    requests_url
+  end
+
+  def personal
+    @animal_id = params[:animal_id]
+    set_request
+
+
   end
 
   private
@@ -120,5 +177,14 @@ class RequestsController < ApplicationController
     locale = localize_current_country
     locale = 'US' if locale == 'XX'
     YAML.load_file(Rails.root.join('db', 'seeds', 'countries.yml'))[locale]
+  end
+
+  def set_steps
+
+    if params[:flow] == "twitter"
+      self.steps = [:ask_twitter, :ask_email]
+    elsif params[:flow] == "facebook"
+      self.steps = [:ask_facebook, :ask_email]
+    end
   end
 end
