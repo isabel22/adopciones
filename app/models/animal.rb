@@ -36,6 +36,7 @@ class Animal < ApplicationRecord
 
   def valid_url
     return unless profile_picture.present?
+
     uri = URI.parse(profile_picture)
     errors.add(:profile_picture, 'is not valid') unless uri.is_a?(URI::HTTP) && !uri.host.nil?
   end
