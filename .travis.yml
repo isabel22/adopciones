@@ -12,26 +12,24 @@ language: ruby
 rvm:
 - 2.4.0
 services:
-  - postgresql
+- postgresql
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - sudo /etc/init.d/postgresql stop
-  - sudo /etc/init.d/postgresql start
+- cp config/database.yml.travis config/database.yml
+- sudo /etc/init.d/postgresql stop
+- sudo /etc/init.d/postgresql start
 script:
-  - RAILS_ENV=test
-  - bundle install
-  - bundle exec rails db:create
-  - bin/rails db:migrate
-  - bundle exec rake db:seed
-  - bundle exec rspec
-  - bundle exec rubocop
-  - bundle exec brakeman -z
+- RAILS_ENV=test
+- bundle install
+- bundle exec rails db:create
+- bin/rails db:migrate
+- bundle exec rake db:seed
+- bundle exec rspec
+- bundle exec rubocop
+- bundle exec brakeman -z
 deploy:
-  provider: rubygems
+  provider: heroku
   api_key:
-    secure: nFDQ6cIc4MVYor3J9oL/cuTIgjB00HNQqmFo/VcoxRo6l4HislrWmm/fuT5DcJNFgiZTM1MFG9A1kRnLtG0s9lFuVX5/EN25d+PhTZBQ2q+JV4nmS+llXOj8SwR2fosEwRzKd2cO75tatA6/vrGXegrMCKo7+4UCL1/elu6i0WC27px8Op7SjPU9u+afdO5BSAhokVLup2aW5DwxnzrIhhlIZyCKi2xQ3Kn2N3E1jrJRokbdndBRNal2ugT6kcjMXZpDMZ+B9XUG5lAeE/TZnh4g+c5C9lKSBu3T0EbpvC1eb8gi3fQESzZ91QQol9WRsbFwrLyxYHqc8XC22kJu37jf/4sUJWBtbrW8FlHab2GPF4aPQ7qxWx7AfY1pyisP+8LaoKX9yZ93ea8QxqEPhgCMR8SSnZtpcALW7Gaf5ma2tqKAJN4uGsrKhED7IciDNHT9BwjKNBLpxFitF7TPjBK0d7ZeWq3GsQwcM1TkvqEsf7V9cmLzN/EJMuLVM1MK9dv8kGCWc54LUxgezWSyOzl6niK1Z6X3Qd8RcnN3KEyxxwhoi3Xl/FFWdO66i52uGBfD3bDiuVrDElUKinb+1LVfftKoDMT0NZb1v2MZEFDE/W3ilh4CL1RkfVrL+ZvmaEuHN0CiB7O45rfFAQhHoYDHtE71bCM4yVOUi+nge2w=
-  gem: adopciones
+    secure: 2JF9MbKYGCCdrAYtlWMzSZ1OJNTpOrvAnqbydUfKg9dnMaQBrb9OYtbT58UXKZolIIqhfk0wcC+0etxUGxMChBHF5sfiv7RVCcn6yq6UcDtUpSAgcnlGzI4nSDN3Kx6l/1y78MoY/i2Xxw2+8B5cmdZWmKu89FfBrTw0DYwgK+QmAZA1JteCvXH4UoXqor7H1IHPkAJdI1zATtU2aOIzj88Vfsyn8LSQIOWB1Boll9oojDrKm9df7I6t+oOr2jjpYNTZZ8EkrzqAuV1/qcFNqtEcyrmNhx8utJ83PQu3oVcZ1mXoc0l+HqIf+8AwSYxBz+y7V9G1Fziz7t2FbAwh9sjD4gd0Amx6mXIEAzuVBiOCthd6IoQwQnHMXJ4vJ7XypQfvuqvLQJ7v1dtBmy/uPU5r43U9ZXQIjlFZD2suKpBrs8OqllE+ZX45zSMMlAxlXCsQhHc64dxQLr3GpuxpVrOxOiuE+BpO7jYkGEJV0Iptd9dMDsLpGypqrpDi0XO7vt3Y4YyKE71CM3jEl+Ss4II/Aeaa0DFhRg6BlX9iTA8btXE2YT4aEKqqDDSHzBUhRTKm9vcBq2eBkqTR2b4iaA+v/LNgjz8+LNrStwOY7PUpeFkb15BPPiy/KeKlswUSUQcWl37VQYXYGptpeJH+5DJto4G/mVCoOkH81xKkIQs=
+  app: dry-chamber-53826
   on:
-    tags: true
     repo: isabel22/adopciones
-    branch: configure-travis
