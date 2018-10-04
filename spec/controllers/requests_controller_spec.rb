@@ -14,7 +14,7 @@ RSpec.describe RequestsController, type: :controller do
     it 'returns a success response' do
       Request.create! valid_attributes
       get :index, params: {}
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -27,7 +27,7 @@ RSpec.describe RequestsController, type: :controller do
     it 'returns a success response' do
       request = Request.create! valid_attributes
       get :show, params: { request_id: request.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -40,7 +40,7 @@ RSpec.describe RequestsController, type: :controller do
     it 'returns a success response' do
       animal = FactoryBot.create(:animal)
       get :new, params: { animal_id: animal.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe RequestsController, type: :controller do
     it 'returns a success response' do
       request = Request.create! valid_attributes
       get :edit, params: { request_id: request.id }
-      expect(response).to be_success
+      expect(response).to be_successful
     end
   end
 
