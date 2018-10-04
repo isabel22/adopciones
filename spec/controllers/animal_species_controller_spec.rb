@@ -41,14 +41,18 @@ RSpec.describe AnimalSpeciesController, type: :controller do
   end
 
   describe 'create' do
-    it 'does not create an animal species' do
-      expect(AnimalSpecy.count).to be(0)
+    def create_species
       patch :create, params: {
         animal_specy_id: 'animal_specy',
         animal_specy: {
           'name' => 'Mammal'
         }
       }
+    end
+
+    it 'does not create an animal species' do
+      expect(AnimalSpecy.count).to be(0)
+      create_species
       expect(AnimalSpecy.count).to be(0)
     end
 
@@ -57,12 +61,7 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       sign_in user
 
       expect(AnimalSpecy.count).to be(0)
-      patch :create, params: {
-        animal_specy_id: 'animal_specy',
-        animal_specy: {
-          'name' => 'Mammal'
-        }
-      }
+      create_species
       expect(AnimalSpecy.count).to be(1)
     end
   end
@@ -133,13 +132,13 @@ RSpec.describe AnimalSpeciesController, type: :controller do
   end
 
   describe 'delete' do
-    before(:each) do
-      @animal_specy = FactoryBot.create(:animal_specy)
+    before do
+      FactoryBot.create(:animal_specy)
     end
 
     it 'does not remove the animal_specy_id' do
       expect(AnimalSpecy.count).to be(1)
-      delete :delete, params: { animal_specy_id: @animal_specy.id }
+      delete :delete, params: { animal_specy_id: AnimalSpecy.first.id }
       expect(AnimalSpecy.count).to be(1)
     end
 
@@ -148,7 +147,7 @@ RSpec.describe AnimalSpeciesController, type: :controller do
       sign_in user
 
       expect(AnimalSpecy.count).to be(1)
-      delete :delete, params: { animal_specy_id: @animal_specy.id }
+      delete :delete, params: { animal_specy_id: AnimalSpecy.first.id }
       expect(AnimalSpecy.count).to be(0)
     end
   end

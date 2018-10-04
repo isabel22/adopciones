@@ -51,13 +51,13 @@ RSpec.describe AnimalsController, type: :controller do
   end
 
   describe 'delete' do
-    before(:each) do
-      @animal = FactoryBot.create(:animal)
+    before do
+      FactoryBot.create(:animal)
     end
 
     it 'does not remove the animal_id' do
       expect(Animal.count).to be(1)
-      delete :delete, params: { animal_id: @animal.id }
+      delete :delete, params: { animal_id: Animal.first.id }
       expect(Animal.count).to be(1)
     end
 
@@ -66,7 +66,7 @@ RSpec.describe AnimalsController, type: :controller do
       sign_in user
 
       expect(Animal.count).to be(1)
-      delete :delete, params: { animal_id: @animal.id }
+      delete :delete, params: { animal_id: Animal.first.id }
       expect(Animal.count).to be(0)
     end
   end
@@ -136,37 +136,31 @@ RSpec.describe AnimalsController, type: :controller do
   end
 
   describe 'create' do
-    it 'does not create an animal' do
-      expect(Animal.count).to be(0)
+    before do
+      sign_in FactoryBot.create(:volunteer)
+    end
+
+    def create_animal(profile_picture: nil, rescued: nil, adopted: nil)
       patch :create, params: {
         animal_id: 'animal',
         animal: {
-          'name' => 'Maggie',
-          'gender' => 'Female',
-          'birthdate_rescuedate' => Date.today
+          'name' => 'Maggie', 'gender' => 'female', 'birthdate_rescuedate' => Date.today,
+          'profile_picture' => profile_picture, 'rescued' => rescued,
+          'animal_breeds_id' => FactoryBot.create(:animal_breed).id, 'adopted' => adopted
         }
       }
-      expect(Animal.count).to be(0)
+    end
+
+    it 'does not create an animal' do
+      expect { create_animal }.not_to change(Animal, :count)
     end
 
     it 'creates a new animal' do
-      user = FactoryBot.create(:volunteer)
-      sign_in user
-
-      expect(Animal.count).to be(0)
-      patch :create, params: {
-        animal_id: 'animal',
-        animal: {
-          'name' => 'Maggie',
-          'gender' => 'female',
-          'birthdate_rescuedate' => Date.today,
-          'profile_picture' => 'http://test.com/test.png',
-          'animal_breeds_id' => FactoryBot.create(:animal_breed).id,
-          'rescued' => true,
-          'adopted' => false
-        }
-      }
-      expect(Animal.count).to be(1)
+      expect do
+        create_animal(
+          profile_picture: 'http://test.com/test.png', rescued: true, adopted: false
+        )
+      end .to change { Animal.all.size }.by(1)
     end
   end
 end

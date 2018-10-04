@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'requests/index', type: :view do
-  before(:each) do
+  before do
     user = FactoryBot.create(:requester)
     sign_in user
 

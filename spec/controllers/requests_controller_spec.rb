@@ -6,7 +6,7 @@ RSpec.describe RequestsController, type: :controller do
   let(:valid_attributes) { FactoryBot.attributes_for(:request) }
 
   describe 'GET #index' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:requester)
       sign_in user
     end
@@ -19,7 +19,7 @@ RSpec.describe RequestsController, type: :controller do
   end
 
   describe 'GET #show' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:volunteer)
       sign_in user
     end
@@ -32,7 +32,7 @@ RSpec.describe RequestsController, type: :controller do
   end
 
   describe 'GET #new' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:requester)
       sign_in user
     end
@@ -45,7 +45,7 @@ RSpec.describe RequestsController, type: :controller do
   end
 
   describe 'GET #edit' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:requester)
       sign_in user
     end
@@ -58,7 +58,7 @@ RSpec.describe RequestsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:requester)
       sign_in user
     end
@@ -78,7 +78,7 @@ RSpec.describe RequestsController, type: :controller do
   end
 
   describe 'POST #update' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:requester)
       sign_in user
     end
@@ -90,8 +90,7 @@ RSpec.describe RequestsController, type: :controller do
         new_attributes[:first_name] = 'Moy'
 
         put :update, params: { request_id: request.id, request: new_attributes }
-        request.reload
-        expect(request.first_name).to eq('Moy')
+        expect(request.reload.first_name).to eq('Moy')
       end
 
       it 'redirects to the index' do
@@ -103,7 +102,7 @@ RSpec.describe RequestsController, type: :controller do
   end
 
   describe 'change status' do
-    before(:each) do
+    before do
       user = FactoryBot.create(:volunteer)
       sign_in user
     end

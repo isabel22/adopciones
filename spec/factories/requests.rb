@@ -5,7 +5,7 @@ FactoryBot.define do
     uid '101018882939'
     first_name 'Joe'
     last_name 'Doe'
-    birthdate 30.years.ago
+    birthdate { 30.years.ago }
     email 'joe.doe+test0@gmail.com'
     address 'Torstraße 102, 10119 Berlin'
     home_phone '+4901701010111'

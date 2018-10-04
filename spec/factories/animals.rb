@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :animal do
     sequence(:name) { |n| "Firulais #{n}" }
     gender 'male'
-    birthdate_rescuedate Date.today
+    birthdate_rescuedate { Date.today }
     rescued true
     adopted false
     profile_picture 'http://abc.com/abc.png'
