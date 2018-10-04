@@ -53,6 +53,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'brakeman'
   gem 'database_cleaner', '~> 1.7', '>= 1.7.0'
   gem 'factory_bot_rails', '~> 4.10.0'
   gem 'rails-controller-testing'
