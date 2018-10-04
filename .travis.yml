@@ -24,6 +24,7 @@ script:
   - bin/rails db:migrate
   - bundle exec rake db:seed
   - bundle exec rspec
+  - bundle exec rubocop
 deploy:
   provider: rubygems
   api_key:
