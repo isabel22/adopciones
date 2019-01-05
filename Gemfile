@@ -55,16 +55,13 @@ end
 group :development, :test do
   gem 'brakeman'
   gem 'database_cleaner', '~> 1.7', '>= 1.7.0'
-  gem 'factory_bot_rails', '~> 4.10.0'
+  gem 'factory_bot_rails', '~> 4.11.0'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.7'
-  gem 'rubocop'
-  gem 'rubocop-rspec'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'rubocop', '~> 0.62'
+  gem 'rubocop-rspec', '~> 1.30.0'
   gem 'travis'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Devise gem. More info in: https://github.com/plataformatec/devise
 gem 'cancancan'
