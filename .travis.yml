@@ -10,7 +10,7 @@ env:
 dist: trusty
 language: ruby
 rvm:
-- 2.4.0
+- 2.5.7
 services:
 - postgresql
 before_script:

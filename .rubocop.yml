@@ -10,7 +10,7 @@ AllCops:
     - vendor/**/*
 Documentation:
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   # Change the default 80 chars limit value
   Max: 120
 Metrics/AbcSize:
@@ -24,3 +24,5 @@ Metrics/MethodLength:
   Max: 10
 RSpec/MultipleExpectations:
   Max: 2
+Style/FormatStringToken:
+  EnforcedStyle: template
