@@ -12,7 +12,7 @@ language: ruby
 rvm:
   - 2.5.8
 services:
-  - postgresql-10
+  - postgresql
 before_script:
   - cp config/database.yml.travis config/database.yml
 before_install:
