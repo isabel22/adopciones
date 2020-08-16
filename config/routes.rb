@@ -33,5 +33,7 @@ Rails.application.routes.draw do
     post :update
     get :approve
     get :disapprove
+
+    resources :steps, controller: 'requests/steps', only: [:show, :update]
   end
 end
