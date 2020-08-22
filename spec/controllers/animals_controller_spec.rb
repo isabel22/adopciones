@@ -160,7 +160,7 @@ RSpec.describe AnimalsController, type: :controller do
         create_animal(
           profile_picture: 'http://test.com/test.png', rescued: true, adopted: false
         )
-      end .to change { Animal.all.size }.by(1)
+      end.to change { Animal.all.size }.by(1)
     end
   end
 end

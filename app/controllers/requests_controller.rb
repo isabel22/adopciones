@@ -97,9 +97,9 @@ class RequestsController < ApplicationController
 
   def localize_current_country
     Timeout.timeout(5) do
-      Net::HTTP.get_response(URI.parse(
-                               'http://api.hostip.info/country.php?ip=' + request.remote_ip
-                             )).body
+      Net::HTTP.get_response(
+        URI.parse("http://api.hostip.info/country.php?ip=#{request.remote_ip}")
+      ).body
     end
   rescue StandardError
     'US'
