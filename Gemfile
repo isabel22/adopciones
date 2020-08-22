@@ -57,7 +57,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.7', '>= 1.7.0'
   gem 'factory_bot_rails', '~> 4.11.0'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-maintenance'
   gem 'rubocop', '~> 0.62'
   gem 'rubocop-rspec', '~> 1.30.0'
   gem 'travis'
