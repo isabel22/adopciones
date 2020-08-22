@@ -2,29 +2,32 @@ addons:
   postgresql: 10.2
   apt:
     packages:
-    - postgresql-10
-    - postgresql-client-10
+      - postgresql-10
+      - postgresql-client-10
 env:
   global:
-  - PGPORT=5432
-dist: trusty
+    - PGPORT=5432
+dist: bionic
 language: ruby
 rvm:
-- 2.5.8
+  - 2.5.8
 services:
-- postgresql
+  - postgresql
 before_script:
-- cp config/database.yml.travis config/database.yml
-- sudo /etc/init.d/postgresql stop
-- sudo /etc/init.d/postgresql start
+  - cp config/database.yml.travis config/database.yml
 before_install:
-- gem install bundler
+  - sudo apt-get update
+  - sudo apt-get install language-pack-es
+  - sudo /etc/init.d/postgresql stop
+  - sudo /etc/init.d/postgresql start 10
+  - gem install bundler
 script:
-- RAILS_ENV=test
-- bundle install
-- bundle exec rails db:create
-- bin/rails db:migrate
-- bundle exec rake db:seed
-- bundle exec rspec
-- bundle exec rubocop
-- bundle exec brakeman -z
+  - RAILS_ENV=test
+  - bundle install
+  - bundle exec rails db:create
+  - bundle exec rails db:reset db:setup
+  - bin/rails db:migrate
+  - bundle exec rake db:seed
+  - bundle exec rspec
+  - bundle exec rubocop
+  - bundle exec brakeman -z

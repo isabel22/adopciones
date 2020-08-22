@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.5.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.3.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -19,7 +19,7 @@ gem 'uglifier', '>= 4.1.10'
 # gem 'mini_racer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+gem 'coffee-rails', '~> 5.0.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -57,8 +57,8 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.7', '>= 1.7.0'
   gem 'factory_bot_rails', '~> 4.11.0'
   gem 'rails-controller-testing'
-  gem 'rspec-rails', '~> 3.8'
-  gem 'rubocop', '~> 0.62'
+  gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-maintenance'
+  gem 'rubocop', '~> 0.89.1', require: false
   gem 'rubocop-rspec', '~> 1.30.0'
   gem 'travis'
 end
