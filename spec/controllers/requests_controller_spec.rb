@@ -40,7 +40,7 @@ RSpec.describe RequestsController, type: :controller do
     it 'returns a success response' do
       animal = FactoryBot.create(:animal)
       get :new, params: { animal_id: animal.id }
-      expect(response).to be_successful
+      expect(response.status).to eq(302)
     end
   end
 
@@ -54,26 +54,6 @@ RSpec.describe RequestsController, type: :controller do
       request = Request.create! valid_attributes
       get :edit, params: { request_id: request.id }
       expect(response).to be_successful
-    end
-  end
-
-  describe 'POST #create' do
-    before do
-      user = FactoryBot.create(:requester)
-      sign_in user
-    end
-
-    context 'with valid params' do
-      it 'creates a new Request' do
-        expect do
-          post :create, params: { request_id: 'request_id', request: valid_attributes }
-        end.to change(Request, :count).by(1)
-      end
-
-      it 'redirects to the index' do
-        post :create, params: { request_id: 'request_id', request: valid_attributes }
-        expect(response).to redirect_to(requests_url)
-      end
     end
   end
 
