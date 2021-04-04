@@ -1,0 +1,58 @@
+version: 2.1
+
+jobs:
+  build:
+    working_directory: ~/adopciones
+    docker:
+      - image: circleci/ruby:2.7.2-node-browsers
+        environment:
+            RAILS_ENV: test
+            PGHOST: 127.0.0.1
+            PGUSER: root
+      - image: circleci/postgres:11-alpine-ram
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: adopciones_ci_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+    steps:
+      - checkout
+      - run:
+          name: Before install
+          command: |
+            cp config/database.yml.ci config/database.yml
+            sudo apt-get update
+            sudo apt-get install -y locales locales-all
+            locale-gen en_US.UTF-8
+            locale-gen es_GT.UTF-8
+      - run:
+          name: Install dependencies
+          command: |
+            gem install bundler
+            sudo apt install -y postgresql-client || true
+      - run:
+          name: Install ruby dependencies
+          command: bundle install
+      - run:
+          name: Database setup
+          command: |
+            rails db:reset db:setup
+            rails db:migrate
+            rails db:seed
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+      - run:
+          name: Rspec
+          command: bundle exec rspec
+      - run:
+          name: Brakeman
+          command: bundle exec brakeman -z
+
+workflows:
+    version: 2.1
+    build:
+      jobs:
+        - build:
+            filters:
+              branches:
+                ignore: master

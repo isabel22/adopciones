@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  database: adopciones_ci_test
+  username: root
+  port: 5432
