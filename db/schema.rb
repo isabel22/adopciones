@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 2020_08_16_195041) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "animal_breeds", "animal_species"
   add_foreign_key "animals", "animal_breeds", column: "animal_breeds_id"
   add_foreign_key "references", "requests"
 end
