@@ -1,0 +1,41 @@
+<% disabled ||= false %>
+
+<%= form_for @request, url: wizard_path, method: :patch do |f| %>
+  <% if disabled %>
+    <fieldset disabled>
+  <% end %>
+  <%= f.hidden_field(:animal_id, :value => @animal_id) %>
+  <%= f.hidden_field(:email, :value => current_user.email) %>
+  <%= f.hidden_field(:form_status, :value => 'pets') %>
+
+  <div class="form-group">
+    <%= label_tag(:puppy, "Do you prefer a puppy?: ") %>
+    <%= f.label :puppy, "Yes", :value => true  %>
+    <%= radio_button("request", "puppy", true) %>
+    <%= f.label :puppy, "No", :value => false  %>
+    <%= radio_button("request", "puppy", false) %>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag(:other_pets, "Do you have other pets?: ") %>
+    <%= f.label :other_pets, "Yes", :value => true  %>
+    <%= radio_button("request", "other_pets", true) %>
+    <%= f.label :other_pets, "No", :value => false  %>
+    <%= radio_button("request", "other_pets", false) %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:different_pet, "What kind of pets?: ") %>
+    <% @other_types.each do |id, type| %>
+      <%= f.check_box :different_pet, {multiple: true}, type, nil %>
+      <%= f.label type %>
+    <% end %>
+  </div>
+
+  <% if disabled %>
+    </fieldset>
+  <% else %>
+    <div class="actions">
+      <%= f.submit "Next" %>
+    </div>
+  <% end %>
+<% end %>

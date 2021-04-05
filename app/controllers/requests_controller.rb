@@ -21,30 +21,15 @@ class RequestsController < ApplicationController
 
   def new
     authorize! :write, Request
-    @request = Request.new
-    @animal_id = params[:animal_id] || params[:request][:animal_id]
-    default_values_for_request
-    @current_country = country_from_current_location
+    @request = Request.create(form_status: 'none')
+    animal_id = params[:animal_id] || params[:request][:animal_id]
+    redirect_to request_step_path(request_id: @request.id, id: :personal, animal_id: animal_id)
   end
 
   def edit
     authorize! :write, Request
     @animal_id = @request.animal_id
     default_values_for_request
-  end
-
-  def create
-    authorize! :write, Request
-
-    @request = Request.new(request_params)
-    if @request.save
-      redirect_to requests_url, notice: 'Request was successfully created.'
-    else
-      @animal_id = params[:animal_id] || params[:request][:animal_id]
-      default_values_for_request
-      flash[:alert] = @request.errors.full_messages.join('<br/>').html_safe
-      render :new
-    end
   end
 
   def update

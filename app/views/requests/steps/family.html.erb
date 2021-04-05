@@ -1,0 +1,30 @@
+<% disabled ||= false %>
+
+<%= form_for @request, url: wizard_path, method: :patch do |f| %>
+  <% if disabled %>
+    <fieldset disabled>
+  <% end %>
+  <%= f.hidden_field(:animal_id, :value => @animal_id) %>
+  <%= f.hidden_field(:email, :value => current_user.email) %>
+  <%= f.hidden_field(:form_status, :value => 'family') %>
+
+  <div class="form-group">
+    <%= label_tag(:family_members, "Please list the name and age of all the family members that will live with #{@animal.name}:") %>
+    <%= f.text_field :family_members %>
+  </div>
+  <div class="form-group">
+    <%= label_tag(:all_agree, "All the members of your family that live in your house agree to adopt a new pet?: ") %>
+    <%= f.label :all_agree, "Yes", :value => true  %>
+    <%= radio_button("request", "all_agree", "true") %>
+    <%= f.label :all_agree, "No", :value => false  %>
+    <%= radio_button("request", "all_agree", "false") %>
+  </div>
+
+  <% if disabled %>
+    </fieldset>
+  <% else %>
+    <div class="actions">
+      <%= f.submit "Next" %>
+    </div>
+  <% end %>
+<% end %>
