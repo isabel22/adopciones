@@ -69,4 +69,5 @@ gem 'devise'
 gem 'rolify'
 
 gem 'bootstrap', '~> 4.3.1'
+gem 'bootswatch', github: 'thomaspark/bootswatch'
 gem 'jquery-rails'
