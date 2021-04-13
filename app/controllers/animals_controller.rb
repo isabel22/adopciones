@@ -70,7 +70,8 @@ class AnimalsController < ApplicationController
       :adopted,
       :adoption_date,
       :animal_breeds_id,
-      :profile_picture
+      :profile_picture,
+      :description
     )
   end
 end
