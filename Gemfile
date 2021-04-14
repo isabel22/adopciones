@@ -70,4 +70,5 @@ gem 'rolify'
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootswatch', github: 'thomaspark/bootswatch'
+gem 'font-awesome-rails'
 gem 'jquery-rails'
