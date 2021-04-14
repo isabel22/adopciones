@@ -19,6 +19,14 @@ class Animal < ApplicationRecord
     AnimalSpecy.where.not(id: breed.animal_specy_id).pluck(:id, :name)
   end
 
+  def female?
+    gender == 'female'
+  end
+
+  def male?
+    gender == 'male'
+  end
+
   private
 
   def date_cannot_be_in_the_future

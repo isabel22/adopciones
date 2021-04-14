@@ -1,19 +1,29 @@
-<body>
-  <div class="container">
-    <%= link_to 'Back', animals_path %>
-      <h1> <%= @animal.name %> </h1>
-      <br>
-      <img src=<%= @animal.profile_picture %> >
-      <br>
-      <span><strong>Created at: </strong><%= @animal.created_at %> </span><br>
-
-      <p><%= @animal.gender if @animal.gender.present? %></p>
-
+<div class="container">
+  <%= link_to 'Back', animals_path %>
+  <div class="jumbotron">
+    <h1 class="display-3"><%= @animal.name %></h1>
+    <p class="lead">
+      <% if @animal.female? %>
+        <%= fa_icon "venus", class: "text-muted pull-left" %>
+      <% end %>
+      <% if @animal.male? %>
+        <%= fa_icon "mars", class: "text-muted pull-left" %>
+      <% end %>
+      <span><strong>Here since: </strong><%= @animal.created_at %> </span><br>
       <% if @animal.adopted %>
         <p><span><strong>Adopted</strong> on <%= @animal.adoption_date %></span></p>
       <% else %>
         <p><span><strong>Waiting for a new home</strong></span></p>
       <% end %>
-    <%= link_to 'Back', animals_path %>
+    </p>
+    <hr class="my-4">
+    <p><%= simple_format @animal.description %></p>
+    <% unless @animal.adopted %>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="<%= new_request_path(animal_id: @animal.id) %>" role="button">Adopt me here</a>
+      </p>
+    <% end %>
+    <img src=<%= @animal.profile_picture %> width="100%">
   </div>
-</body>
+  <%= link_to 'Back', animals_path %>
+</div>
