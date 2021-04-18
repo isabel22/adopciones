@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   devise_for :users
   root 'adoptions#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :animals, only: [:index, :new] do
+  resources :animals, only: %i[index new] do
     get :show
     delete :delete
     get :edit
@@ -10,14 +12,14 @@ Rails.application.routes.draw do
     post :create
   end
 
-  resources :animal_species, only: [:index, :new] do
+  resources :animal_species, only: %i[index new] do
     post :create
     get :show
     get :edit
     patch :update
     delete :delete
 
-    resources :animal_breeds, only: [:index, :new] do
+    resources :animal_breeds, only: %i[index new] do
       post :create
       get :show
       delete :delete
@@ -26,7 +28,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :requests, only: [:index, :new, :edit] do
+  resources :requests, only: %i[index new edit] do
     post :create
     get :show
     get :edit
@@ -34,4 +36,6 @@ Rails.application.routes.draw do
     get :approve
     get :disapprove
   end
+
+  resources :associations, only: [:show]
 end

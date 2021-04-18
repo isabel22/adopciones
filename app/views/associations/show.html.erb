@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="page-header">
+    <div class="jumbotron">
+      <div class="float-right">
+        <%= image_tag(@association.photo_url, size: '200x94') %>
+      </div>
+      <h1 class="display-3">Adopta en <%= @association.name %></h1>
+      <p class="lead"><%= @association.description %></p>
+      <hr class="my-4">
+      <p><%= @association.extra_description %></p>
+      <p class="lead">
+        <a class="btn btn-warning btn-lg" href="<%= @association.donation_link%>" role="button" target="_blank">Haz una donación aquí</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="jumbotron bg-transparent w-100">
+    <div class="card-deck">
+      <div class="card-columns">
+        <% @animals.each do |animal| %>
+          <div class="card">
+            <% profile_picture = animal.profile_picture || "test.jpg" %>
+            <img class="card-img-top" src=<%= profile_picture %> alt=<%= animal.name%>>
+            <div class="card-body">
+              <h5 class="card-title"><%= animal.name %></h5>
+              <p class="card-text">
+                <% breed = AnimalBreed.find(animal.animal_breeds_id) %>
+                <% species = AnimalSpecy.find(breed.animal_specy_id) %>
+                <strong><%= animal.name %></strong> is a cute <strong><i><%= species.name %></i></strong> of breed <strong><i><%= breed.name %></i></strong>.
+              </p>
+              <p>
+                <%= link_to 'Apply to adopt', new_request_path(animal_id: animal.id), html_options = { :class => "btn btn-primary" } %>
+              </p>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">
+                <strong>
+                  <%if animal.rescued %>
+                    Rescued on:
+                  <% else %>
+                    Born on:
+                  <% end %>
+                </strong>
+                <%= animal.birthdate_rescuedate.strftime("%B %d, %Y") %>
+              </small>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
