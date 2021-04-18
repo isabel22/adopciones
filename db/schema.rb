@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_12_174809) do
+ActiveRecord::Schema.define(version: 2021_04_18_203517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,26 @@ ActiveRecord::Schema.define(version: 2021_04_12_174809) do
     t.bigint "animal_breeds_id"
     t.string "profile_picture"
     t.string "description"
+    t.bigint "association_id"
     t.index ["animal_breeds_id"], name: "index_animals_on_animal_breeds_id"
+    t.index ["association_id"], name: "index_animals_on_association_id"
+  end
+
+  create_table "associations", force: :cascade do |t|
+    t.string "uid"
+    t.string "name"
+    t.string "email"
+    t.string "address"
+    t.string "home_phone"
+    t.string "description"
+    t.string "url"
+    t.string "photo_url"
+    t.string "extra_description"
+    t.string "donation_link"
+    t.bigint "animals_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["animals_id"], name: "index_associations_on_animals_id"
   end
 
   create_table "references", force: :cascade do |t|
@@ -122,5 +141,6 @@ ActiveRecord::Schema.define(version: 2021_04_12_174809) do
 
   add_foreign_key "animal_breeds", "animal_species"
   add_foreign_key "animals", "animal_breeds", column: "animal_breeds_id"
+  add_foreign_key "animals", "associations"
   add_foreign_key "references", "requests"
 end
