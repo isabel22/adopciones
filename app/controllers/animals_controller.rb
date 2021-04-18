@@ -63,14 +63,8 @@ class AnimalsController < ApplicationController
 
   def safe_params
     params.require(:animal).permit(
-      :name,
-      :gender,
-      :birthdate_rescuedate,
-      :rescued,
-      :adopted,
-      :adoption_date,
-      :animal_breeds_id,
-      :profile_picture
+      :name, :gender, :birthdate_rescuedate, :rescued, :adopted,
+      :adoption_date, :animal_breeds_id, :profile_picture, :description
     )
   end
 end

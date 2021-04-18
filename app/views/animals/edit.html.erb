@@ -2,41 +2,50 @@
   <div class="container">
     <%= link_to 'Back', animals_path %>
 
-    <h1>Update animal</h1>
+    <h1>Update <%= @animal.name %></h1>
 
-    <%= form_for @animal, as: :animal, url: animal_update_path(@animal.id), method: :patch do |f| %>
-      <div class="form-group">
-        <%= label_tag(:name, "Name: ") %>
-        <%= f.text_field :name, :required => true %>
-      </div>
-      <div class="form-group">
-        <%= label_tag(:gender, "Gender: ") %>
-        <%= f.select :gender, ['female', 'male'], include_blank: true, :required => true %>
-      </div>
-      <div class="form-group">
-        <%= label_tag(:rescued, "Rescued: ") %>
-        <%= f.check_box :rescued, :required => false %>
-      </div>
-      <div class="form-group">
-        <%= label_tag(:birthdate_rescuedate, "Date of rescue/birth: ") %>
-        <%= f.date_field :birthdate_rescuedate, :required => true %>
-      </div>
+    <div class="form-group">
+      <%= form_for @animal, as: :animal, url: animal_update_path(@animal.id), method: :patch do |f| %>
+        <div class="form-group">
+          <%= label_tag(:name, "Name") %>
+          <%= f.text_field :name, :required => true, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= label_tag(:description, "Description") %>
+          <%= f.text_area :description, :required => true, class: 'form-control', rows: 20 %>
+        </div>
+        <div class="form-group">
+          <%= label_tag(:gender, "Gender") %>
+          <%= f.select :gender, ['female', 'male'], { include_blank: true, required: true }, class: 'custom-select' %>
+        </div>
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <%= f.check_box :rescued, :required => false, class: 'custom-control-input' %>
+            <%= label_tag(:rescued, "Rescued", class: 'custom-control-label', for: 'animal_rescued') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag(:birthdate_rescuedate, "Date of rescue/birth") %>
+          <%= f.date_field :birthdate_rescuedate, :required => true, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <div class="custom-control custom-checkbox">
+            <%= f.check_box :adopted, :required => false, class: 'custom-control-input' %>
+            <%= label_tag(:adopted, "Adopted", class: 'custom-control-label', for: 'animal_adopted') %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= label_tag(:adoption_date, "Date of adoption") %>
+          <%= f.date_field :adoption_date, :required => false, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= label_tag(:profile_picture, "Profile picture") %>
+          <%= f.url_field :profile_picture, :required => true, class: 'form-control' %>
+        </div>
+        <%= submit_tag('Update', :class => "btn btn-primary") %>
+      <% end %>
 
-      <div class="form-group">
-        <%= label_tag(:adopted, "Adopted: ") %>
-        <%= f.check_box :adopted, :required => false %>
-      </div>
-      <div class="form-group">
-        <%= label_tag(:adoption_date, "Date of adoption: ") %>
-        <%= f.date_field :adoption_date, :required => false %>
-      </div>
-      <div class="form-group">
-        <%= label_tag(:profile_picture, "Profile picture: ") %>
-        <%= f.url_field :profile_picture, :required => true %>
-      </div>
-      <%= submit_tag('Update', :class => "btn btn-primary") %>
-    <% end %>
-
-    <br><%= link_to 'Back', animals_path %>
+      <br><%= link_to 'Back', animals_path %>
+    </div>
   </div>
 </body>
