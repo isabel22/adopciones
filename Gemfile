@@ -59,7 +59,7 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-maintenance'
   gem 'rubocop', require: false
-  gem 'rubocop-rspec', '~> 1.30.0'
+  gem 'rubocop-rspec'
   gem 'travis'
 end
 
