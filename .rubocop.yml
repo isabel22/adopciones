@@ -11,8 +11,6 @@ AllCops:
     - config/initializers/**
     - script/**
     - vendor/**/*
-Documentation:
-  Enabled: false
 Layout/LineLength:
   # Change the default 80 chars limit value
   Max: 120
@@ -27,5 +25,9 @@ Metrics/MethodLength:
   Max: 10
 RSpec/MultipleExpectations:
   Max: 2
+Style/Documentation:
+  Enabled: false
 Style/FormatStringToken:
   EnforcedStyle: template
+Style/FrozenStringLiteralComment:
+  Enabled: false
