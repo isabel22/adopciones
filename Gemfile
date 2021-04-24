@@ -58,7 +58,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.11.0'
   gem 'rails-controller-testing'
   gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-maintenance'
-  gem 'rubocop', '~> 0.89.1', require: false
+  gem 'rubocop', require: false
   gem 'rubocop-rspec', '~> 1.30.0'
   gem 'travis'
 end
