@@ -1,0 +1,42 @@
+<body>
+  <div class="container">
+    <h1> Associations </h1>
+
+    <div class="text-right">
+      <%= link_to "New association", new_association_path, class: "btn btn-primary" %>
+    </div><br>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>uid</th>
+            <th>Name</th>
+            <th>E-mail</th>
+            <th>Status</th>
+            <th>Animals</th>
+            <th>Created at</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @associations.each do |association| %>
+            <tr>
+              <td><%= association.uid %></td>
+              <td><%= association.name %></td>
+              <td><%= association.email %></td>
+              <td><%= association.active? %></td>
+              <td><%= association.animals.count %></td>
+              <td><%= association.created_at %></td>
+
+              <td>
+                <%= link_to 'Show', association_path(association.uid) %>
+                <%= link_to 'Edit', edit_association_path(association.uid) %>
+                <%= link_to 'Delete', association_path(association.uid), method: :delete %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>

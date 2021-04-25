@@ -37,5 +37,5 @@ Rails.application.routes.draw do
     get :disapprove
   end
 
-  resources :associations, only: [:show]
+  resources :associations, only: %i[show index new create edit update destroy]
 end

@@ -1,0 +1,52 @@
+<div class="form-group">
+  <%= simple_form_for @association do |f| %>
+    <div class="form-group">
+      <%= f.label :uid %>
+      <%= f.input_field :uid, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.input_field :name, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>
+      <%= f.input_field :email, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :address %>
+      <%= f.input_field :address, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :home_phone %>
+      <%= f.input_field :home_phone, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :description %>
+      <%= f.input_field :description, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :url %>
+      <%= f.input_field :url, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :photo_url %>
+      <%= f.input_field :photo_url, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :extra_description %>
+      <%= f.input_field :extra_description, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :donation_link %>
+      <%= f.input_field :donation_link, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <%= f.check_box :active, required: false, class: 'custom-control-input' %>
+        <%= f.label :active, class: 'custom-control-label', for: 'association_active' %>
+      </div>
+    </div>
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
+    <%= link_to 'Cancel', associations_path, {:class=>"btn btn-default"} %>
+  <% end %>
+</div>
