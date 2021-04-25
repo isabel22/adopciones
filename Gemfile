@@ -67,6 +67,7 @@ end
 gem 'cancancan'
 gem 'devise'
 gem 'rolify'
+gem 'simple_form'
 
 gem 'bootstrap', '~> 4.3.1'
 gem 'bootswatch', github: 'thomaspark/bootswatch'
